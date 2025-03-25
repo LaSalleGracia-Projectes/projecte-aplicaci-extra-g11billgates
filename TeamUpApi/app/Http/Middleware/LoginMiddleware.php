@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Validator;
 
 class LoginMiddleware
 {
@@ -15,6 +16,15 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $validator = Validator::make($request->all(), [
+            'Nombre' => 'required|string',
+            'Contraseña' => 'required|string|min:5',
+        ],);
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
         return $next($request);
     }
 }
