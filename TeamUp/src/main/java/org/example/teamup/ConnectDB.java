@@ -8,7 +8,7 @@ public class ConnectDB {
     public static Connection getInstance() {
         if (instance == null) {
             try {
-                String url = "jdbc:mysql://localhost:3306/testdb";
+                String url = "jdbc:mysql://localhost:3306/teamup";
                 String user = "root";
                 String password = "";
                 instance = DriverManager.getConnection(url, user,
