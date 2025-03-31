@@ -10,7 +10,7 @@ class UsrController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'message' => 'Countries retrieved successfully',
+            'message' => 'Users retrieved successfully',
             'data' => Usuario::all()
         ], 200);
     }
