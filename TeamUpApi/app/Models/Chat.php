@@ -10,4 +10,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Chat extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'IDChat',
+        'IDMatch',
+        'FechaCreacion'
+    ];
+    public function matchUsers()
+    {
+        return $this->hasOne(MatchUsers::class);
+    }
+    public function mensaje()
+    {
+        return $this->hasMany(Mensaje::class);
+    }
 }
