@@ -40,4 +40,12 @@ class Usuario extends Model
     {
         return $this->belongsToMany(Juego::class)->withPivot('Estadisticas', 'Preferencias', 'NivelElo');
     }
+    public function mensaje()
+    {
+        return $this->hasMany(Mensaje::class);
+    }
+    public function actividad()
+    {
+        return $this->hasMany(Actividad::class);
+    }
 }
