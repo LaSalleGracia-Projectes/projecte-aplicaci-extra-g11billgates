@@ -10,4 +10,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Actividad extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'IDActividad',
+        'IDUsuario',
+        'TipoActividad',
+        'FechaRegistro'
+    ];
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'IDUsuario', 'IDUsuario');
+    }
 }
