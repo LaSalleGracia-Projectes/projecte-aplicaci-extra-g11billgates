@@ -10,4 +10,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Juego extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'IDJuego',
+        'NombreJuego',
+        'Genero',
+        'Descripcion'
+    ];
+
+    public function usuario(): BelongsToMany
+    {
+        return $this->belongsToMany(Juego::class)->withPivot('Estadisticas', 'Preferencias', 'NivelElo');
+    }
 }
