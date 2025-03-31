@@ -17,6 +17,7 @@ class Actividad extends Model
         'TipoActividad',
         'FechaRegistro'
     ];
+    //relacion a usuario 1:n
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'IDUsuario', 'IDUsuario');

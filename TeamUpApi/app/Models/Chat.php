@@ -16,10 +16,12 @@ class Chat extends Model
         'IDMatch',
         'FechaCreacion'
     ];
+    //relacion a matchusers 1:1
     public function matchUsers()
     {
         return $this->hasOne(MatchUsers::class);
     }
+    //relacion a mensaje 1:n
     public function mensaje()
     {
         return $this->hasMany(Mensaje::class);
