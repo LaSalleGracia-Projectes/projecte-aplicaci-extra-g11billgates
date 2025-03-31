@@ -10,4 +10,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class MatchUsers extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'IDMatch',
+        'IDUsuario1',
+        'IDUsuario2',
+        'FechaCreacion'
+    ];
+    public function usuario1()
+    {
+        return $this->belongsTo(Usuario::class, 'IDUsuario1', 'IDUsuario');
+    }
+    public function usuario2()
+    {
+        return $this->belongsTo(Usuario::class, 'IDUsuario2', 'IDUsuario');
+    }
+    public function chat()
+    {
+        return $this->hasOne(Chat::class);
+    }
 }
