@@ -17,7 +17,7 @@ class Usuario extends Model
     protected $table = 'users'; // Especifica el nombre de la tabla
 
     protected $fillable = [
-        'IDUsuario',
+        'id',
         'Nombre',
         'email',
         'password',
