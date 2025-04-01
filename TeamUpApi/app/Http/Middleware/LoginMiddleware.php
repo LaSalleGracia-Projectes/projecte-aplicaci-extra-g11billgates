@@ -18,7 +18,7 @@ class LoginMiddleware
     {
         $validator = Validator::make($request->all(), [
             'Nombre' => 'required|string',
-            'Contraseña' => 'required|string|min:5',
+            'Contraseña' => 'required|string',
         ],);
         if ($validator->fails()) {
             return response()->json([

@@ -4,14 +4,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $user = User::create([
+        $user = Usuario::create([
             'Nombre' => $request->Nombre,
             'Correo' => $request->Correo,
             'Contraseña' => bcrypt($request->Contraseña),

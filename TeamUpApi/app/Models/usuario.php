@@ -14,7 +14,7 @@ class Usuario extends Model
     use HasFactory;
     use HasApiTokens;
 
-    protected $fillabe = [
+    protected $fillable = [
         'IDUsuario',
         'Nombre',
         'Correo',

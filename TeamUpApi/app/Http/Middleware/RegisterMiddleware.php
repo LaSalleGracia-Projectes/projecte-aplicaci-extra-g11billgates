@@ -17,11 +17,11 @@ class RegisterMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $validator = Validator::make($request->all(), [
-            'Nombre' => 'required|string|max:20|unique:Usuario,Nombre',
-            'Correo' => 'required|string|email|unique:Usuario,Correo',
+            'Nombre' => 'required|string|max:20|unique:Usuarios,Nombre',
+            'Correo' => 'required|string|email|unique:Usuarios,Correo',
             'Contraseña' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/|confirmed',
             'Edad' => 'required|integer|min:18',
-            'region' => 'required|string'
+            'Region' => 'required|string'
 
         ], [
             'Nombre.required'      => 'El nombre de usuario es obligatorio.',
