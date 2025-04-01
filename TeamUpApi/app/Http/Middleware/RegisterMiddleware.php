@@ -17,9 +17,9 @@ class RegisterMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $validator = Validator::make($request->all(), [
-            'Nombre' => 'required|string|max:20|unique:Usuarios,Nombre',
-            'Correo' => 'required|string|email|unique:Usuarios,Correo',
-            'Contraseña' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/|confirmed',
+            'Nombre' => 'required|string|max:20|unique:users,Nombre',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/|confirmed',
             'Edad' => 'required|integer|min:18',
             'Region' => 'required|string'
 
@@ -27,13 +27,13 @@ class RegisterMiddleware
             'Nombre.required'      => 'El nombre de usuario es obligatorio.',
             'Nombre.max'           => 'El nombre de usuario tiene que tener un máximo de 20 carácteres',
             'Nombre.unique'        => 'Este nombre de usuario ya existe',
-            'Correo.required'      => 'El correo es obligatorio.',
-            'Correo.email'         => 'El correo debe ser un email válido.',
-            'Correo.unique'        => 'Este correo ya está registrado.',
-            'Contraseña.required'  => 'La contraseña es obligatoria.',
-            'Contraseña.min'       => 'La contraseña debe tener al menos 8 caracteres.',
-            'Contraseña.regex'     => 'La contraseña ha de tener almenos una mayúscula, una minúscula, un numero y un simbolo (@, #, $, % etc)',
-            'Contraseña.confirmed' => 'Las contraseñas no coinciden.',
+            'email.required'      => 'El correo es obligatorio.',
+            'email.email'         => 'El correo debe ser un email válido.',
+            'email.unique'        => 'Este correo ya está registrado.',
+            'password.required'  => 'La contraseña es obligatoria.',
+            'password.min'       => 'La contraseña debe tener al menos 8 caracteres.',
+            'password.regex'     => 'La contraseña ha de tener almenos una mayúscula, una minúscula, un numero y un simbolo (@, #, $, % etc)',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
             'Edad.required'        => 'La edad es obligatoria.',
             'Edad.integer'         => 'La edad debe ser un número entero.',
             'Edad.min'             => 'Debes tener al menos 18 años para usar esta aplicación.',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -13,8 +14,8 @@ class AuthController extends Controller
     {
         $user = Usuario::create([
             'Nombre' => $request->Nombre,
-            'Correo' => $request->Correo,
-            'Contraseña' => bcrypt($request->Contraseña),
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
             'Edad' => $request->Edad,
             'Region' => $request->Region
         ]);
@@ -22,7 +23,7 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('Nombre', 'Contraseña'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response(['error' => 'Credentials not match'], 401);
         }
         $token = auth()->user()->createToken('Auth token');

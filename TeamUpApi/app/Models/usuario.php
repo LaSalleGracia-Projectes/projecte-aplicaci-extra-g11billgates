@@ -14,23 +14,25 @@ class Usuario extends Model
     use HasFactory;
     use HasApiTokens;
 
+    protected $table = 'users'; // Especifica el nombre de la tabla
+
     protected $fillable = [
         'IDUsuario',
         'Nombre',
-        'Correo',
-        'Contraseña',
+        'email',
+        'password',
         'FotoPerfil',
         'Edad',
         'Region'
     ];
     protected $hidden = [
-        'Contraseña'
+        'password'
     ];
     //funcion para encriptar contraseña
     protected function cast(): array
     {
         return [
-            'Contraseña' => 'hashed'
+            'password' => 'hashed'
         ];
     }
     //relacion a MatchUsers 1:n

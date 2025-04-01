@@ -17,8 +17,8 @@ class LoginMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $validator = Validator::make($request->all(), [
-            'Nombre' => 'required|string',
-            'Contraseña' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
         ],);
         if ($validator->fails()) {
             return response()->json([
