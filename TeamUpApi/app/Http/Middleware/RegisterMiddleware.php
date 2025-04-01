@@ -17,9 +17,27 @@ class RegisterMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $validator = Validator::make($request->all(), [
-            'Nombre' => 'required|string|regex:/^[\pL\s]+$/u',
-            'Correo' => 'required|string|email|unique:users,email',
-            'Contraseña' => 'required|string|min:5|confirmed',
+            'Nombre' => 'required|string|max:20|unique:Usuario,Nombre',
+            'Correo' => 'required|string|email|unique:Usuario,Correo',
+            'Contraseña' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/|confirmed',
+            'Edad' => 'required|integer|min:18',
+            'region' => 'required|string'
+
+        ], [
+            'Nombre.required'      => 'El nombre de usuario es obligatorio.',
+            'Nombre.max'           => 'El nombre de usuario tiene que tener un máximo de 20 carácteres',
+            'Nombre.unique'        => 'Este nombre de usuario ya existe',
+            'Correo.required'      => 'El correo es obligatorio.',
+            'Correo.email'         => 'El correo debe ser un email válido.',
+            'Correo.unique'        => 'Este correo ya está registrado.',
+            'Contraseña.required'  => 'La contraseña es obligatoria.',
+            'Contraseña.min'       => 'La contraseña debe tener al menos 8 caracteres.',
+            'Contraseña.regex'     => 'La contraseña ha de tener almenos una mayúscula, una minúscula, un numero y un simbolo (@, #, $, % etc)',
+            'Contraseña.confirmed' => 'Las contraseñas no coinciden.',
+            'Edad.required'        => 'La edad es obligatoria.',
+            'Edad.integer'         => 'La edad debe ser un número entero.',
+            'Edad.min'             => 'Debes tener al menos 18 años para usar esta aplicación.',
+            'region.required'      => 'La región es obligatoria.',
         ]);
 
         if ($validator->fails()) {
