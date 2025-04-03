@@ -24,6 +24,7 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        /*
         try (Connection con = ConnectDB.getInstance();
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM usuario"))
@@ -40,6 +41,7 @@ public class HelloApplication extends Application {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+         */
         launch();
         //prueba de de funcionamiento de la base de datos
 

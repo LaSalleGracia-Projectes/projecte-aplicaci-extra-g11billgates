@@ -25,7 +25,7 @@
     <Text fx:id="textPasswordConfirmation" text="Confirme su contraseña"/>
     <TextField fx:id="passwordConfirmation" />
     <Text fx:id="regionText" text="indique su region" />
-    <ComboBox fx:id="comboBox" onAction="#selectRegion" promptText="Seleccione una región" />
-    <Text fx:id= "enlace_register" text="Si no te has registrado clica aquí" onMouseClicked="cambiarRegister"/>
+    <ComboBox fx:id="region" onAction="#selectRegion" promptText="Seleccione una región" />
+    <Text fx:id= "enlace_register" text="Si no te has registrado clica aquí" onMouseClicked="#switchToLogin"/>
     <Button text="Login" onAction="#onHelloButtonClick"/>
 </VBox>

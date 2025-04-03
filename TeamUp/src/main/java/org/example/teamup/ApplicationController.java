@@ -16,6 +16,8 @@ public class ApplicationController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    @FXML
     private ComboBox<String> region;
     @FXML
     private Label welcomeText;
@@ -25,14 +27,11 @@ public class ApplicationController {
         welcomeText.setText("Comprob");
     } //hacer el proceso de login
 
-    @FXML
-    public void initialize(){
-        region.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");
-    }
+
 
     @FXML
     public void switchToLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+        root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.show();
@@ -40,9 +39,10 @@ public class ApplicationController {
 
     @FXML
     public void switchToRegister(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("register-view.fxml"));
+        root = FXMLLoader.load(getClass().getResource("register-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        region.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");
         stage.show();
     }
 

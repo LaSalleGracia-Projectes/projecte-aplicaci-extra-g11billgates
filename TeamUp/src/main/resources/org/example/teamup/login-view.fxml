@@ -18,6 +18,6 @@
   <TextField fx:id="email"/>
   <Text fx:id="textoContraseña" text="Ingrese su contraseña"/>
   <TextField fx:id="password" />
-  <Text fx:id= "enlace_register" text="Si no te has registrado clica aquí" onMouseClicked="cambiarRegister"/>
+  <Text fx:id= "enlace_register" text="Si no te has registrado clica aquí" onMouseClicked="#switchToRegister"/>
   <Button text="Login" onAction="#onHelloButtonClick"/>
 </VBox>
