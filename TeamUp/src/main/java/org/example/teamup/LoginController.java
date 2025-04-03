@@ -10,11 +10,13 @@ public class LoginController {
 
 
 
+
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Comprob");
     } //hacer el proceso de login
     protected void cambiarRegister() {
-        Scene scene  = new Scene()
+        Scene scene  = new Scene();
+
     }
 }
