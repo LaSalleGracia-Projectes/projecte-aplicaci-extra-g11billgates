@@ -9,6 +9,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.teamup.ApplicationController">
     <padding>
@@ -26,6 +27,6 @@
     <TextField fx:id="passwordConfirmation" />
     <Text fx:id="regionText" text="indique su region" />
     <ComboBox fx:id="region" onAction="#selectRegion" promptText="Seleccione una región" />
-    <Text fx:id= "enlace_register" text="Si no te has registrado clica aquí" onMouseClicked="#switchToLogin"/>
+    <Hyperlink fx:id= "enlace_register" text="Si ya tienes una cuenta clica aquí" onAction="#switchToLogin"/>
     <Button text="Login" onAction="#onHelloButtonClick"/>
 </VBox>
