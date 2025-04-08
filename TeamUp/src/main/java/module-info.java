@@ -11,6 +11,7 @@ module org.example.teamup {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires org.json;
 
     opens org.example.teamup to javafx.fxml;
     exports org.example.teamup;

@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class AuthApiExample {
@@ -81,6 +83,25 @@ public class AuthApiExample {
         String jsonInputString = String.format("{\"email\": \"%s\", \"password\": \"%s\"}", email, password);
         System.out.println("Iniciando sesion");
         sendPostRequest(url, jsonInputString);
+    }
+    /**
+     * Método para parsear el JSON de errores y devolver un mensaje concatenado.
+     * @param jsonResponse La cadena JSON de la respuesta de error.
+     * @return Los mensajes de error concatenados.
+     */
+    private String parseErrorMessages(String jsonResponse) {
+        StringBuilder messages = new StringBuilder();
+        JSONObject jsonObject = new JSONObject(jsonResponse);
+        if (jsonObject.has("errors")) {
+            JSONObject errors = jsonObject.getJSONObject("errors");
+            for (String field : errors.keySet()) {
+                JSONArray errorArray = errors.getJSONArray(field);
+                for (int i = 0; i < errorArray.length(); i++) {
+                    messages.append(errorArray.getString(i)).append("\n");
+                }
+            }
+        }
+        return messages.toString();
     }
     /*public static void main(String[] args) throws IOException {
         // Ejemplo de uso:

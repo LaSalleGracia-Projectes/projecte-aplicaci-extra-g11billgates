@@ -81,6 +81,7 @@ public class RegisterController {
                     Platform.runLater(() -> welcomeText.setText("Registro exitoso"));
 
                 } catch (IOException ex) {
+                    String errorResponse = AuthApiExample.get;
                     Platform.runLater(() -> welcomeText.setText("Error en el registro"));
                 }
                 return null;
