@@ -18,13 +18,13 @@
 
     <Label fx:id="welcomeText"/>
     <Text fx:id="textUser" text="Ingrese su nombre de usuario" />
-    <TextField fx:id="user"/>
+    <TextField fx:id="nombreField"/>
     <Text fx:id="textEmail" text="Ingrese su correo eléctronico"/>
-    <TextField fx:id="email" />
+    <TextField fx:id="emailField" />
     <Text fx:id="textPassword" text="Ingrese su contraseña"/>
-    <PasswordField fx:id="password" />
+    <PasswordField fx:id="passwordField" />
     <Text fx:id="textPasswordConfirmation" text="Confirme su contraseña"/>
-    <TextField fx:id="passwordConfirmation" />
+    <PasswordField fx:id="confirmPasswordField" />
     <Text fx:id="regionText" text="indique su region" />
     <ComboBox fx:id="region" onAction="#selectRegion" promptText="Seleccione una región" />
     <Hyperlink fx:id= "enlace_register" text="Si ya tienes una cuenta clica aquí" onAction="#switchToLogin"/>

@@ -20,6 +20,17 @@ public class RegisterController {
     private ComboBox<String> region;
     @FXML
     private Label welcomeText;
+    @FXML
+    private TextField nombreField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPasswordField;
+    @FXML
+    private TextField edadField;
+
 
     public void initialize(){
         region.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");

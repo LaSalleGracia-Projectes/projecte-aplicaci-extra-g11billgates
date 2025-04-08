@@ -16,9 +16,9 @@
 
   <Label fx:id="welcomeText"/>
   <Text fx:id="textoEmail" text="Ingrese su correo" />
-  <TextField fx:id="email"/>
+  <TextField fx:id="emailField"/>
   <Text fx:id="textoContraseña" text="Ingrese su contraseña"/>
-  <TextField fx:id="password" />
+  <TextField fx:id="passwordField" />
   <Hyperlink text="Si no tienes una cuenta registrate" onAction="#switchToRegister"/>
   <Button text="Login" onAction="#onHelloButtonClick"/>
 </VBox>
