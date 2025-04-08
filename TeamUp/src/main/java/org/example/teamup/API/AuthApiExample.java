@@ -1,108 +1,79 @@
 package org.example.teamup.API;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 
 public class AuthApiExample {
-    /**
-     * Método genérico para enviar peticiones POST a una URL especificada.
-     * @param urlString La URL a la que se enviará la petición.
-     * @param jsonInputString El cuerpo del mensaje en formato JSON.
-     */
 
-    private static void sendPostRequest(String urlString, String jsonInputString) throws IOException {
+    // Variable estática para almacenar temporalmente el error de respuesta
+    private static String responseError = "";
+
+    public static String getResponseError() {
+        return responseError;
+    }
+
+    /**
+     * Método genérico para enviar peticiones POST y retornar la respuesta del servidor.
+     * @param urlString URL destino.
+     * @param jsonInputString Cuerpo del JSON.
+     * @return La respuesta del servidor en formato String.
+     * @throws IOException
+     */
+    public static String sendPostRequest(String urlString, String jsonInputString) throws IOException {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-        // Configuración de la petición POST
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
 
-        // Escribir el cuerpo de la petición (JSON) en el stream
         try (DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream())) {
-            outputStream.writeBytes(jsonInputString);  // Enviar el JSON
+            outputStream.writeBytes(jsonInputString);
             outputStream.flush();
         }
 
-        // Obtención y muestra del código de respuesta
         int responseCode = conn.getResponseCode();
-        System.out.println("Código de respuesta: " + responseCode);
-
-        // Lectura de la respuesta (manejo de error en caso de respuesta incorrecta)
         BufferedReader in;
+        StringBuilder response = new StringBuilder();
         if (responseCode < HttpURLConnection.HTTP_BAD_REQUEST) {
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         } else {
             in = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            // Guarda la respuesta de error para poder mostrarla en la vista
+            String line;
+            while ((line = in.readLine()) != null) {
+                response.append(line);
+            }
+            responseError = response.toString();
+            throw new IOException("Error en la petición, código " + responseCode);
         }
         String inputLine;
-        StringBuilder response = new StringBuilder();
-
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
         in.close();
-        System.out.println("Respuesta: " + response.toString());
         conn.disconnect();
+        return response.toString();
     }
 
-    /**
-     * Envía una petición de registro.
-     * Se espera que la API acepte el nombre, email, password, edad y region en formato JSON.
-     * @param Nombre Nombre del usuario.
-     * @param email Email del usuario.
-     * @param password Contraseña del usuario.
-     * @param password_confirmation confirmacion de contraseña
-     * @param Edad edad del usuario
-     * @param Region continente del usuario
-     */
-    public static void register(String Nombre, String email, String password, String password_confirmation, int Edad, String Region) throws IOException {
+    public static String register(String Nombre, String email, String password, String password_confirmation, int Edad, String region) throws IOException {
         String url = "http://127.0.0.1:8000/api/register";
-        String jsonInputString = String.format("{\"Nombre\": \"%s\", \"email\": \"%s\", \"password\": \"%s\", \"password_confirmation\": \"%s\", \"Edad\": \"%d\", \"Region\": \"%s\"}", Nombre, email, password, password_confirmation, Edad, Region);
-        System.out.println("Registandose...");
-        sendPostRequest(url, jsonInputString);
+        // Asegúrate de que los nombres de los campos coinciden con los que espera Laravel
+        String jsonInputString = String.format(
+                "{\"Nombre\": \"%s\", \"email\": \"%s\", \"password\": \"%s\", \"password_confirmation\": \"%s\", \"Edad\": %d, \"region\": \"%s\"}",
+                Nombre, email, password, password_confirmation, Edad, region);
+        System.out.println("Registrandose...");
+        return sendPostRequest(url, jsonInputString);
     }
-    /**
-     * Envía una petición de login.
-     * Se espera que la API acepte email y password en formato JSON.
-     * @param email Email del usuario.
-     * @param password Contraseña del usuario.
-     */
-    public static void login(String email, String password) throws IOException {
+
+    public static String login(String email, String password) throws IOException {
         String url = "http://127.0.0.1:8000/api/login";
         String jsonInputString = String.format("{\"email\": \"%s\", \"password\": \"%s\"}", email, password);
-        System.out.println("Iniciando sesion");
-        sendPostRequest(url, jsonInputString);
+        System.out.println("Iniciando sesión...");
+        return sendPostRequest(url, jsonInputString);
     }
-    /**
-     * Método para parsear el JSON de errores y devolver un mensaje concatenado.
-     * @param jsonResponse La cadena JSON de la respuesta de error.
-     * @return Los mensajes de error concatenados.
-     */
-    private String parseErrorMessages(String jsonResponse) {
-        StringBuilder messages = new StringBuilder();
-        JSONObject jsonObject = new JSONObject(jsonResponse);
-        if (jsonObject.has("errors")) {
-            JSONObject errors = jsonObject.getJSONObject("errors");
-            for (String field : errors.keySet()) {
-                JSONArray errorArray = errors.getJSONArray(field);
-                for (int i = 0; i < errorArray.length(); i++) {
-                    messages.append(errorArray.getString(i)).append("\n");
-                }
-            }
-        }
-        return messages.toString();
-    }
+}
+
     /*public static void main(String[] args) throws IOException {
         // Ejemplo de uso:
         // 1. Registro de un usuario nuevo.
@@ -112,4 +83,4 @@ public class AuthApiExample {
         login("roger@example.com", "123456aA#");
     }*/
 
-}
+

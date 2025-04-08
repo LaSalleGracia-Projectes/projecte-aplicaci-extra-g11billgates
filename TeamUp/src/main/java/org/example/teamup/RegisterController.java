@@ -3,29 +3,18 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.io.IOException;
-import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import org.example.teamup.API.AuthApiExample;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class RegisterController {
-    private Stage stage ;
-    private Scene scene;
-    private Parent root;
 
-    @FXML
-    private ComboBox<String> regionField;
-    @FXML
-    private Label welcomeText;
     @FXML
     private TextField nombreField;
     @FXML
@@ -36,62 +25,64 @@ public class RegisterController {
     private PasswordField confirmPasswordField;
     @FXML
     private TextField edadField;
-
-
-    public void initialize(){
-        regionField.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");
-    }
-
     @FXML
-    public void switchToLogin(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+    private TextField regionField;
     @FXML
-    private void selectRegion(ActionEvent event) {
-        String selected = regionField.getValue();
-    }
+    private Label statusLabel;
+
     @FXML
     public void handleRegister(ActionEvent event) {
-        // Recoger valores de los controles
         String nombre = nombreField.getText();
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
-        String region = regionField.getValue();
-        // Convertir la edad a entero y validar que sea un número
+        String region = regionField.getText();
+
         int edad;
         try {
             edad = Integer.parseInt(edadField.getText());
         } catch (NumberFormatException e) {
-            welcomeText.setText("La edad debe ser un número.");
+            statusLabel.setText("La edad debe ser un número.");
             return;
         }
 
-        //Ejecutar la llamada a la API en un hilo aparte
-        Task<Void> task = new Task<Void>(){
+        Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                try{
-                    AuthApiExample.register(nombre, email, password, confirmPassword, edad, region);
-                    // Actualización de la interfaz en el hilo de la UI
-                    Platform.runLater(() -> welcomeText.setText("Registro exitoso"));
-
+                try {
+                    // Llamada al método de registro que realiza la petición a la API
+                    String response = AuthApiExample.register(nombre, email, password, confirmPassword, edad, region);
+                    // Si el registro es exitoso, la API retornará un JSON con éxito
+                    Platform.runLater(() -> statusLabel.setText("Registro exitoso: " + response));
                 } catch (IOException ex) {
-                    String errorResponse = AuthApiExample.get;
-                    Platform.runLater(() -> welcomeText.setText("Error en el registro"));
+                    // Si se recibe un error, se parsea el contenido JSON para extraer los mensajes
+                    String errorResponse = AuthApiExample.getResponseError();
+                    String errorMessages = parseErrorMessages(errorResponse);
+                    Platform.runLater(() -> statusLabel.setText(errorMessages));
                 }
                 return null;
             }
         };
         new Thread(task).start();
     }
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Comprob");
-    } //hacer el proceso de login
 
+    /**
+     * Método para parsear el JSON de errores y devolver un mensaje concatenado.
+     * @param jsonResponse La cadena JSON de la respuesta de error.
+     * @return Los mensajes de error concatenados.
+     */
+    private String parseErrorMessages(String jsonResponse) {
+        StringBuilder messages = new StringBuilder();
+        JSONObject jsonObject = new JSONObject(jsonResponse);
+        if (jsonObject.has("errors")) {
+            JSONObject errors = jsonObject.getJSONObject("errors");
+            for (String field : errors.keySet()) {
+                JSONArray errorArray = errors.getJSONArray(field);
+                for (int i = 0; i < errorArray.length(); i++) {
+                    messages.append(errorArray.getString(i)).append("\n");
+                }
+            }
+        }
+        return messages.toString();
+    }
 }
