@@ -10,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+
 
 public class RegisterController {
     private Stage stage ;
@@ -48,6 +51,22 @@ public class RegisterController {
     private void selectRegion(ActionEvent event) {
         String selected = region.getValue();
     }
+    @FXML
+    public void handleRegister(ActionEvent event) {
+        // Recoger valores de los controles
+        String nombre = nombreField.getText();
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+        String Region = region.getValue();
+        // Convertir la edad a entero y validar que sea un número
+        int edad;
+        try {
+            edad = Integer.parseInt(edadField.getText());
+        } catch (NumberFormatException e) {
+            welcomeText.setText("La edad debe ser un número.");
+            return;
+        }
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Comprob");
