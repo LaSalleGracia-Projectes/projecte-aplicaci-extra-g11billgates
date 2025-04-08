@@ -1,4 +1,6 @@
 package org.example.teamup;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
+import org.example.teamup.API.AuthApiExample;
 
 
 public class RegisterController {
@@ -20,7 +23,7 @@ public class RegisterController {
     private Parent root;
 
     @FXML
-    private ComboBox<String> region;
+    private ComboBox<String> regionField;
     @FXML
     private Label welcomeText;
     @FXML
@@ -36,7 +39,7 @@ public class RegisterController {
 
 
     public void initialize(){
-        region.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");
+        regionField.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");
     }
 
     @FXML
@@ -49,7 +52,7 @@ public class RegisterController {
     }
     @FXML
     private void selectRegion(ActionEvent event) {
-        String selected = region.getValue();
+        String selected = regionField.getValue();
     }
     @FXML
     public void handleRegister(ActionEvent event) {
@@ -58,7 +61,7 @@ public class RegisterController {
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
-        String Region = region.getValue();
+        String region = regionField.getValue();
         // Convertir la edad a entero y validar que sea un número
         int edad;
         try {
@@ -67,6 +70,24 @@ public class RegisterController {
             welcomeText.setText("La edad debe ser un número.");
             return;
         }
+
+        //Ejecutar la llamada a la API en un hilo aparte
+        Task<Void> task = new Task<Void>(){
+            @Override
+            protected Void call() throws Exception {
+                try{
+                    AuthApiExample.register(nombre, email, password, confirmPassword, edad, region);
+                    // Actualización de la interfaz en el hilo de la UI
+                    Platform.runLater(() -> welcomeText.setText("Registro exitoso"));
+
+                } catch (IOException ex) {
+                    Platform.runLater(() -> welcomeText.setText("Error en el registro"));
+                }
+                return null;
+            }
+        };
+        new Thread(task).start();
+    }
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Comprob");
