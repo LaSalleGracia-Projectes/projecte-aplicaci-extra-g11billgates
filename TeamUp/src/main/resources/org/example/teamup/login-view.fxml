@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.teamup.ApplicationController">
   <padding>
@@ -18,7 +19,7 @@
   <Text fx:id="textoEmail" text="Ingrese su correo" />
   <TextField fx:id="emailField"/>
   <Text fx:id="textoContraseña" text="Ingrese su contraseña"/>
-  <TextField fx:id="passwordField" />
+  <PasswordField fx:id="passwordField" />
   <Hyperlink text="Si no tienes una cuenta registrate" onAction="#switchToRegister"/>
-  <Button text="Login" onAction="#onHelloButtonClick"/>
+  <Button text="Login" onAction="#handleLogin"/>
 </VBox>
