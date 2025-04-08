@@ -20,8 +20,8 @@ public class ApplicationController {
     private Label welcomeText;
     @FXML
     private TextField emailField;
-    @FXML
-    private PasswordField passwordField;
+    //@FXML
+    //private PasswordField passwordField;
     @FXML
     private Hyperlink enlace_register;
     @FXML

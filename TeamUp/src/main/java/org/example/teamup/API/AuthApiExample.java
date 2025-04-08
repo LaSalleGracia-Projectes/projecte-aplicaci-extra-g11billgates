@@ -82,13 +82,13 @@ public class AuthApiExample {
         System.out.println("Iniciando sesion");
         sendPostRequest(url, jsonInputString);
     }
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         // Ejemplo de uso:
         // 1. Registro de un usuario nuevo.
         register("Roger", "roger@example.com", "123456aA#", "123456aA#", 32, "Europa");
 
         // 2. Login del usuario registrado.
         login("roger@example.com", "123456aA#");
-    }
+    }*/
 
 }
