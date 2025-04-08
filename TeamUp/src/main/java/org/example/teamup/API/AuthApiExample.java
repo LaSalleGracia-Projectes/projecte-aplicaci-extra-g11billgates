@@ -26,9 +26,12 @@ public class AuthApiExample {
         conn.setRequestProperty("Accept", "application/json");
         conn.setDoOutput(true);
 
-        try (DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream())){
+        // Escribir el cuerpo de la petición (JSON) en el stream
+        try (DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream())) {
+            outputStream.writeBytes(jsonInputString);  // Enviar el JSON
             outputStream.flush();
         }
+
         // Obtención y muestra del código de respuesta
         int responseCode = conn.getResponseCode();
         System.out.println("Código de respuesta: " + responseCode);
@@ -43,14 +46,14 @@ public class AuthApiExample {
         String inputLine;
         StringBuilder response = new StringBuilder();
 
-        while ((inputLine = in.readLine()) != null){
+        while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
         in.close();
         System.out.println("Respuesta: " + response.toString());
         conn.disconnect();
-
     }
+
     /**
      * Envía una petición de registro.
      * Se espera que la API acepte el nombre, email, password, edad y region en formato JSON.
@@ -82,10 +85,10 @@ public class AuthApiExample {
     public static void main(String[] args) throws IOException {
         // Ejemplo de uso:
         // 1. Registro de un usuario nuevo.
-        register("Roger", "roger@example.com", "123456aA", "123456aA", 32, "Europa");
+        register("Roger", "roger@example.com", "123456aA#", "123456aA#", 32, "Europa");
 
         // 2. Login del usuario registrado.
-        login("roger@example.com", "123456aA");
+        login("roger@example.com", "123456aA#");
     }
 
 }
