@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class RegisterController {
-    private Stage stage;
+    private Stage stage ;
     private Scene scene;
     private Parent root;
 
@@ -30,6 +30,7 @@ public class RegisterController {
         root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
     }
     @FXML

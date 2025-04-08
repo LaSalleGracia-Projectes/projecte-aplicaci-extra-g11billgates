@@ -27,15 +27,16 @@ public class ApplicationController {
     @FXML
     protected void onHelloButtonClick() {
         welcomeText.setText("Comprob");
-    } //hacer el proceso de login
-
+    }
 
     @FXML
     public void switchToRegister(ActionEvent event) throws IOException {
         try {
-            root = FXMLLoader.load(getClass().getResource("register-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("register-view.fxml"));
+            Parent root = loader.load();
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
+            stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

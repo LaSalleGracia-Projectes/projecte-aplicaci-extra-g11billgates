@@ -19,6 +19,6 @@
   <TextField fx:id="email"/>
   <Text fx:id="textoContraseña" text="Ingrese su contraseña"/>
   <TextField fx:id="password" />
-  <Hyperlink fx:id= "enlace_register" text="Si no tienes una cuenta registrate" onAction="#switchToRegister"/>
+  <Hyperlink text="Si no tienes una cuenta registrate" onAction="#switchToRegister"/>
   <Button text="Login" onAction="#onHelloButtonClick"/>
 </VBox>
