@@ -51,4 +51,20 @@ public class AuthApiExample {
         conn.disconnect();
 
     }
+    /**
+     * Envía una petición de registro.
+     * Se espera que la API acepte el nombre, email y password en formato JSON.
+     * @param Nombre Nombre del usuario.
+     * @param email Email del usuario.
+     * @param password Contraseña del usuario.
+     * @param password_confirmation confirmacion de contraseña
+     * @param Edad edad del usuario
+     * @param Region continente del usuario
+     */
+    public static void register(String Nombre, String email, String password, String password_confirmation, int Edad, String Region) throws IOException {
+        String url = "http://127.0.0.1:8000/api/register";
+        String jsonInputString = String.format("{\"Nombre\": \"%s\", \"email\": \"%s\", \"password\": \"%s\", \"password_confirmation\": \"%s\", \"Edad\": \"%d\", \"Region\": \"%s\"}", Nombre, email, password, password_confirmation, Edad, Region);
+        System.out.println("Iniciando sesion");
+        sendPostRequest(url, jsonInputString);
+    }
 }
