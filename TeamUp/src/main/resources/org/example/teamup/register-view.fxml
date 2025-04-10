@@ -30,4 +30,5 @@
     <ComboBox fx:id="regionField" onAction="#selectRegion" promptText="Seleccione una región" />
     <Hyperlink fx:id= "enlace_register" text="Si ya tienes una cuenta clica aquí" onAction="#switchToLogin"/>
     <Button text="Login" onAction="#handleRegister"/>
+    <Label fx:id="statusLabel"/>
 </VBox>

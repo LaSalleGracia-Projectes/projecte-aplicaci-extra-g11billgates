@@ -3,18 +3,30 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.example.teamup.API.AuthApiExample;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+//TODO ARREGLAR EL REGISTER DESPUES DE PONER NUEVO METODO PARA IMPORTAR ERRORES
 public class RegisterController {
 
+    private Stage stage ;
+    private Scene scene;
+    private Parent root;
+
+    @FXML
+    private ComboBox<String> regionField;
     @FXML
     private TextField nombreField;
     @FXML
@@ -26,9 +38,28 @@ public class RegisterController {
     @FXML
     private TextField edadField;
     @FXML
-    private TextField regionField;
-    @FXML
     private Label statusLabel;
+    @FXML
+    private Label welcomeText;
+
+    public void initialize(){
+        regionField.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");
+    }
+
+    @FXML
+    public void switchToLogin(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void selectRegion(ActionEvent event) {
+        String selected = regionField.getValue();
+    }
+
 
     @FXML
     public void handleRegister(ActionEvent event) {
@@ -36,7 +67,7 @@ public class RegisterController {
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
-        String region = regionField.getText();
+        String region = regionField.getValue();
 
         int edad;
         try {
@@ -85,4 +116,9 @@ public class RegisterController {
         }
         return messages.toString();
     }
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Comprob");
+    }
+
 }
