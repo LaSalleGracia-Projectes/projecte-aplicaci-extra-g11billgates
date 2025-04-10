@@ -60,7 +60,7 @@ public class AuthApiExample {
         String url = "http://127.0.0.1:8000/api/register";
         // Asegúrate de que los nombres de los campos coinciden con los que espera Laravel
         String jsonInputString = String.format(
-                "{\"Nombre\": \"%s\", \"email\": \"%s\", \"password\": \"%s\", \"password_confirmation\": \"%s\", \"Edad\": %d, \"region\": \"%s\"}",
+                "{\"Nombre\": \"%s\", \"email\": \"%s\", \"password\": \"%s\", \"password_confirmation\": \"%s\", \"Edad\": %d, \"Region\": \"%s\"}",
                 Nombre, email, password, password_confirmation, Edad, region);
         System.out.println("Registrandose...");
         return sendPostRequest(url, jsonInputString);
