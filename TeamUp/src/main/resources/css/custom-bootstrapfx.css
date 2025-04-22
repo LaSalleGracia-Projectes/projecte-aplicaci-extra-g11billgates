@@ -1,0 +1,10 @@
+
+.btn-danger {
+    -fx-background-color: #ff0000;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: transparent;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #cc0000;
+}
