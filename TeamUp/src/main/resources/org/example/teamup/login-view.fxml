@@ -12,7 +12,7 @@
 
 <Scene xmlns:fx="http://javafx.com/fxml"
        fx:controller="org.example.teamup.ApplicationController"
-       stylesheets="@/css/custom-bootstrapfx.css">
+       stylesheets="/css/custom-bootstrapfx.css">
   <VBox alignment="CENTER" spacing="20.0">
     <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
