@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class MatchUsers extends Model
 {
     use HasFactory;
+    protected $table = 'matchusers';
 
     protected $fillable = [
         'IDMatch',
