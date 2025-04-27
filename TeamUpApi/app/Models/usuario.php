@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Usuario extends Authenticable
+class Usuario extends Model
 {
     use HasFactory;
     use HasApiTokens;
