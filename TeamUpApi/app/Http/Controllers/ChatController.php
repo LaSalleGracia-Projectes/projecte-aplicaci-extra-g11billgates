@@ -10,8 +10,7 @@ class ChatController extends Controller
 {
     public function index()
     {
-        // Devuelve los últimos 50 mensajes (puedes ajustar)
-        return Message::latest()->take(50)->get()->reverse()->values();
+        return Mensaje::latest('FechaEnvio')->take(50)->get()->reverse()->values();
     }
 
     public function store(Request $request)
@@ -22,18 +21,17 @@ class ChatController extends Controller
             'FechaEnvio' => 'required|date',
         ]);
 
+        // 👇 IDUsuario viene del usuario logueado, no del request
         $mensaje = Mensaje::create([
             'IDChat' => $request->IDChat,
-            'IDUsuario' => auth()->user()->IDUsuario, // 👈 ahora sí aquí
+            'IDUsuario' => auth()->id(),
             'Tipo' => $request->Tipo,
             'FechaEnvio' => $request->FechaEnvio,
         ]);
 
+        // Emite el evento
         broadcast(new MessageSent($mensaje))->toOthers();
 
         return response()->json(['status' => 'Message Sent!']);
     }
-
-
-
 }

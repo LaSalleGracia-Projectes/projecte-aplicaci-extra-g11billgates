@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 namespace App\Events;
 
 use App\Models\Mensaje; // 👈 Asegúrate de importar tu modelo
