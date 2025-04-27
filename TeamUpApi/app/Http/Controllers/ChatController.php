@@ -18,14 +18,13 @@ class ChatController extends Controller
     {
         $request->validate([
             'IDChat' => 'required|exists:chats,IDChat',
-            'IDUsuario' => auth()->user()->IDUsuario,
             'Tipo' => 'required|string',
             'FechaEnvio' => 'required|date',
         ]);
 
         $mensaje = Mensaje::create([
             'IDChat' => $request->IDChat,
-            'IDUsuario' => $request->IDUsuario,
+            'IDUsuario' => auth()->user()->IDUsuario, // 👈 ahora sí aquí
             'Tipo' => $request->Tipo,
             'FechaEnvio' => $request->FechaEnvio,
         ]);
@@ -34,6 +33,7 @@ class ChatController extends Controller
 
         return response()->json(['status' => 'Message Sent!']);
     }
+
 
 
 }
