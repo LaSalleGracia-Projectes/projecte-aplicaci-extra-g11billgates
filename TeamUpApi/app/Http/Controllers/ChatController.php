@@ -27,7 +27,7 @@ class ChatController extends Controller
             'IDChat' => $request->IDChat,
             'IDUsuario' => auth()->id(),
             'Tipo' => $request->Tipo,
-            'FechaEnvio' => $request->FechaEnvio,
+            'FechaEnvio' => now(),
             'Texto' => $request->Texto,
         ]);
 
@@ -44,7 +44,7 @@ class ChatController extends Controller
 
         $chat = Chat::create([
             'IDMatch' => $request->IDMatch,
-            'FechaCreacion' => now(), // 👈 Fecha automática
+            'FechaCreacion' => now(),
         ]);
 
         return response()->json([

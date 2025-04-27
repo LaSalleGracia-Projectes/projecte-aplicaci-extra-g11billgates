@@ -16,7 +16,7 @@ class MatchController extends Controller
         $match = MatchUsers::create([
             'IDUsuario1' => $request->IDUsuario1,
             'IDUsuario2' => auth()->id(),
-            'FechaMatch' => now(),
+            'FechaCreacion' => now(),
         ]);
 
         return response()->json([
