@@ -19,19 +19,20 @@ class ChatController extends Controller
             'IDChat' => 'required|exists:chats,IDChat',
             'Tipo' => 'required|string',
             'FechaEnvio' => 'required|date',
+            'Texto' => 'nullable|string|max:5000',
         ]);
 
-        // 👇 IDUsuario viene del usuario logueado, no del request
         $mensaje = Mensaje::create([
             'IDChat' => $request->IDChat,
             'IDUsuario' => auth()->id(),
             'Tipo' => $request->Tipo,
             'FechaEnvio' => $request->FechaEnvio,
+            'Texto' => $request->Texto,
         ]);
 
-        // Emite el evento
         broadcast(new MessageSent($mensaje))->toOthers();
 
         return response()->json(['status' => 'Message Sent!']);
     }
+
 }

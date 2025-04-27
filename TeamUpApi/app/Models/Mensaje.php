@@ -20,7 +20,8 @@ class Mensaje extends Model
         'IDChat',
         'IDUsuario',
         'Tipo',
-        'FechaEnvio'
+        'FechaEnvio',
+        'Texto',
     ];
 
     //relacion a chat 1:n
