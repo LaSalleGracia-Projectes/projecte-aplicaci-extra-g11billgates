@@ -11,6 +11,10 @@ class Mensaje extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'IDMensaje';
+    public $incrementing = true; // o false si no es auto-incremental
+    public $timestamps = false; // si no usas created_at y updated_at
+
     protected $fillable = [
         'IDMensaje',
         'IDChat',

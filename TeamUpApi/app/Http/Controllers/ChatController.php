@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
-use App\Models\Message;
+use App\Models\Mensaje;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -17,18 +17,23 @@ class ChatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'content' => 'required|string|max:1000',
+            'IDChat' => 'required|exists:chats,IDChat',
+            'IDUsuario' => auth()->user()->IDUsuario,
+            'Tipo' => 'required|string',
+            'FechaEnvio' => 'required|date',
         ]);
 
-        // Crear el mensaje
-        $message = Message::create([
-            'user_id' => auth()->id(), // o manejar de otro modo si no hay auth
-            'content' => $request->content,
+        $mensaje = Mensaje::create([
+            'IDChat' => $request->IDChat,
+            'IDUsuario' => $request->IDUsuario,
+            'Tipo' => $request->Tipo,
+            'FechaEnvio' => $request->FechaEnvio,
         ]);
 
-        // Emitir evento de mensaje enviado
-        broadcast(new MessageSent($message))->toOthers();
+        broadcast(new MessageSent($mensaje))->toOthers();
 
         return response()->json(['status' => 'Message Sent!']);
     }
+
+
 }
