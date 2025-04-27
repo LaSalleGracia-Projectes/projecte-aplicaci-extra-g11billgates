@@ -1,7 +1,10 @@
 <?php
 
+<?php
+
 namespace App\Events;
 
+use App\Models\Mensaje; // 👈 Asegúrate de importar tu modelo
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -33,5 +36,19 @@ class MessageSent implements ShouldBroadcast
     public function broadcastAs()
     {
         return 'message.sent';
+    }
+
+    /**
+     * Define the data to broadcast.
+     */
+    public function broadcastWith()
+    {
+        return [
+            'IDMensaje' => $this->message->IDMensaje,
+            'IDChat' => $this->message->IDChat,
+            'IDUsuario' => $this->message->IDUsuario,
+            'Tipo' => $this->message->Tipo,
+            'FechaEnvio' => $this->message->FechaEnvio,
+        ];
     }
 }
