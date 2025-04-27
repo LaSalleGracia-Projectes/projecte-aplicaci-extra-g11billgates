@@ -11,6 +11,8 @@ class MatchUsers extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'IDMatch';
+
     public $timestamps = false;
 
     protected $fillable = [

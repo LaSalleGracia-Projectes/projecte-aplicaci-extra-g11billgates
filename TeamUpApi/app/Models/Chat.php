@@ -11,6 +11,11 @@ class Chat extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $primaryKey = 'IDChat';
+
+
     protected $fillable = [
         'IDChat',
         'IDMatch',

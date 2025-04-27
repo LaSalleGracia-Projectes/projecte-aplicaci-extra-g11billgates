@@ -7,6 +7,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MatchController;
 use App\Http\Middleware\RegisterMiddleware;
 use App\Http\Middleware\LoginMiddleware;
+use App\Http\Middleware\EnsureUserInChatMatch;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,7 +21,8 @@ Route::get('/messages', [ChatController::class, 'index'])->middleware('auth:sanc
 Route::post('/messages', [ChatController::class, 'store'])->middleware('auth:sanctum');
 Route::post('/chats', [ChatController::class, 'storeChat'])->middleware('auth:sanctum');
 //ruta para ver un chat concreto con todos sus mensajes
-Route::get('/chats/{idChat}', [ChatController::class, 'getMessagesFromChat'])->middleware('auth:sanctum');
+Route::get('/chats/{idChat}/messages', [ChatController::class, 'getMessagesFromChat'])
+    ->middleware(['auth:sanctum', EnsureUserInChatMatch::class]);
 
 
 //rutas de match
