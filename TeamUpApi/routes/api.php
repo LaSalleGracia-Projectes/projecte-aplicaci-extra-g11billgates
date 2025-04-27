@@ -17,3 +17,4 @@ Route::post('login', [AuthController::class, 'login'])->middleware(LoginMiddlewa
 //Rutas de chat
 Route::get('/messages', [ChatController::class, 'index'])->middleware('auth:sanctum');
 Route::post('/messages', [ChatController::class, 'store'])->middleware('auth:sanctum');
+Route::post('/chats', [ChatController::class, 'storeChat'])->middleware('auth:sanctum');

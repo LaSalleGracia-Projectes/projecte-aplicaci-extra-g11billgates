@@ -35,4 +35,21 @@ class ChatController extends Controller
         return response()->json(['status' => 'Message Sent!']);
     }
 
+    public function storeChat(Request $request)
+    {
+        $request->validate([
+            'IDMatch' => 'required|exists:match_users,IDMatch',
+        ]);
+
+        $chat = Chat::create([
+            'IDMatch' => $request->IDMatch,
+            'FechaCreacion' => now(), // 👈 Fecha automática
+        ]);
+
+        return response()->json([
+            'status' => 'Chat Created!',
+            'chat' => $chat
+        ]);
+    }
+
 }
