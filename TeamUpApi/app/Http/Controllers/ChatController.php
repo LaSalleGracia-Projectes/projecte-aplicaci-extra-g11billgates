@@ -52,4 +52,15 @@ class ChatController extends Controller
         ]);
     }
 
+
+    public function getMessagesFromChat($idChat)
+    {
+        $mensajes = Mensaje::where('IDChat', $idChat)
+                    ->orderBy('FechaEnvio', 'asc')
+                    ->get();
+
+        return response()->json([
+            'mensajes' => $mensajes
+        ]);
+    }
 }

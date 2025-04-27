@@ -19,6 +19,9 @@ Route::post('login', [AuthController::class, 'login'])->middleware(LoginMiddlewa
 Route::get('/messages', [ChatController::class, 'index'])->middleware('auth:sanctum');
 Route::post('/messages', [ChatController::class, 'store'])->middleware('auth:sanctum');
 Route::post('/chats', [ChatController::class, 'storeChat'])->middleware('auth:sanctum');
+//ruta para ver un chat concreto con todos sus mensajes
+Route::get('/chats/{idChat}', [ChatController::class, 'getMessagesFromChat'])->middleware('auth:sanctum');
+
 
 //rutas de match
 Route::post('/matches', [MatchController::class, 'store'])->middleware('auth:sanctum');
