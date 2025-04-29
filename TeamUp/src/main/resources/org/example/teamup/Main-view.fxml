@@ -48,10 +48,29 @@
 
     <!-- Área de contenido -->
     <center>
-        <StackPane fx:id="contentArea" styleClass="p-4">
-            <ImageView fx:id="bienvenidaImage" fitWidth="400" preserveRatio="true" />
-        </StackPane>
+        <HBox spacing="20" alignment="CENTER_LEFT" styleClass="p-4">
+
+            <!-- Columna izquierda: Imagen -->
+            <VBox fx:id="imageContainer" alignment="TOP_LEFT" style="-fx-padding: 20 0 0 20;">
+                <ImageView fx:id="bienvenidaImage" fitWidth="600" preserveRatio="true"/>
+
+            </VBox>
+
+            <!-- Columna derecha: Textos -->
+            <VBox fx:id="textContainer" spacing="10" alignment="TOP_LEFT"
+                  maxWidth="400" styleClass="text-column">
+            <Label text="¡Bienvenido a TeamUp!" styleClass="text-title"/>
+                <Label text="Explora partidas, encuentra compañeros y juega en equipo." wrapText="true" maxWidth="350"/>
+                <Label text="En el panel de la izquierda puedes navegar entre las secciones." wrapText="true" maxWidth="350"/>
+                <Label text="Disfruta la experiencia." wrapText="true" maxWidth="350"/>
+            </VBox>
+
+        </HBox>
     </center>
+
+
+
+
 
 
 </BorderPane>

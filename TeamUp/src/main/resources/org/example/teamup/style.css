@@ -64,4 +64,20 @@
     -fx-font-size: 18px;
     -fx-cursor: hand;
 }
+.text-column {
+    -fx-padding: 20 20 20 20; /* Antes: 20 40 20 20 */
+}
+
+
+.text-title {
+    -fx-font-size: 24px;
+    -fx-text-fill: #D32F2F;
+    -fx-font-weight: bold;
+}
+
+.text-paragraph {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+}
+
 
