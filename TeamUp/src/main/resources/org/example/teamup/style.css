@@ -29,3 +29,21 @@
     -fx-pref-height: 45px;
     -fx-padding: 10 12;
 }
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-max-width: Infinity;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2); /* hover blanco muy suave */
+}
+
+.bg-danger {
+    -fx-background-color: #D32F2F;
+}

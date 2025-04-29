@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.teamup.MainViewController"
-            prefHeight="400.0" prefWidth="600.0">
-    <children>
-        <Label fx:id="mainText" layoutX="20" layoutY="20"/>
-    </children>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.teamup.MainViewController">
 
-</AnchorPane>
+    <!-- Barra lateral -->
+    <left>
+        <VBox spacing="20" prefWidth="220" styleClass="bg-danger" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="30" bottom="30" left="20" right="10"/>
+            </padding>
+
+            <Button text="Inicio" styleClass="sidebar-btn"/>
+            <Button text="Match" styleClass="sidebar-btn"/>
+            <Button text="Juegos" styleClass="sidebar-btn"/>
+            <Button text="Chats" styleClass="sidebar-btn"/>
+            <Button text="Perfil" styleClass="sidebar-btn"/>
+
+        </VBox>
+    </left>
+
+    <!-- Área de contenido -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="p-4">
+            <Label text="Bienvenido a TeamUp" styleClass="h2, text-primary"/>
+        </StackPane>
+    </center>
+
+</BorderPane>
