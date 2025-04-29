@@ -23,6 +23,28 @@
         </VBox>
     </left>
 
+    <top>
+        <HBox spacing="10" prefHeight="40" styleClass="top-bar" alignment="CENTER">
+            <padding>
+                <Insets top="5" bottom="5" left="15" right="15"/>
+            </padding>
+
+            <!-- Notificaciones a la izquierda -->
+            <Label text="🔔" styleClass="top-button"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- TeamUp al centro -->
+            <Label text="TeamUp" styleClass="top-title"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Ajustes a la derecha -->
+            <Label text="⚙" styleClass="top-button"/>
+        </HBox>
+    </top>
+
+
+
     <!-- Área de contenido -->
     <center>
         <StackPane fx:id="contentArea" styleClass="p-4">

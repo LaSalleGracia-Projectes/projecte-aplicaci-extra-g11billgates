@@ -47,3 +47,21 @@
 .bg-danger {
     -fx-background-color: #D32F2F;
 }
+.top-bar {
+    -fx-background-color: #D32F2F; /* Rojo vivo */
+    -fx-border-color: black;
+    -fx-border-width: 0 0 3px 0; /* Borde inferior más grueso */
+}
+
+.top-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.top-button {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
