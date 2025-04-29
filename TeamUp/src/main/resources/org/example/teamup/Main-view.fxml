@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
+<?import javafx.scene.image.ImageView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.teamup.MainViewController">
 
@@ -48,8 +49,9 @@
     <!-- Área de contenido -->
     <center>
         <StackPane fx:id="contentArea" styleClass="p-4">
-            <Label text="Bienvenido a TeamUp" styleClass="h2, text-primary"/>
+            <ImageView fx:id="bienvenidaImage" fitWidth="400" preserveRatio="true" />
         </StackPane>
     </center>
+
 
 </BorderPane>
