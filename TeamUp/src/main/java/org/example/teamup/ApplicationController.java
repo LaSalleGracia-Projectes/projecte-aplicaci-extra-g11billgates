@@ -39,13 +39,18 @@ public class ApplicationController {
             Parent root = loader.load();
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
+
+            // Aquí añadimos otra vez los estilos
+            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
     @FXML
     public void handleLogin(ActionEvent event){
         String email = emailField.getText();
