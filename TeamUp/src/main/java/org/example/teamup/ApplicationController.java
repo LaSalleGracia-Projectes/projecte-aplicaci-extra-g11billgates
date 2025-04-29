@@ -13,12 +13,18 @@ import javafx.concurrent.Task;
 import org.example.teamup.API.AuthApiExample;
 
 import java.io.IOException;
+//TODO Poner opcion de gmail o contraseña no encontrada en la api de laravel en el endpoint de login
+
 
 public class ApplicationController {
     private Stage stage;
     private Scene scene;
     private Parent root;
 
+
+
+    @FXML
+    private Label statusLabel;
     @FXML
     private Label welcomeText;
     @FXML
@@ -81,7 +87,7 @@ public class ApplicationController {
                         }
                     });
                 } catch (IOException ex) {
-                    Platform.runLater(() -> welcomeText.setText("Error en login: " + ex.getMessage()));
+                    Platform.runLater(() -> statusLabel.setText("Error en login: " + ex.getMessage()));
                 }
                 return null;
             }

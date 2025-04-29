@@ -37,4 +37,8 @@
           onAction="#handleLogin"
           styleClass="btn, btn-danger, btn-lg"/>
 
+  <!-- Mensaje de estado -->
+  <Label fx:id="statusLabel"/>
+
 </VBox>
+
