@@ -1,6 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.example.teamup.ApplicationController"
@@ -10,22 +13,26 @@
     <Insets top="40.0" bottom="40.0" left="30.0" right="30.0"/>
   </padding>
 
-  <Label fx:id="welcomeText" text="TeamUp" styleClass="h2, text-primary"/>
+  <!-- Título -->
+  <Label fx:id="welcomeText" text="TeamUp" styleClass="h2, text-primary, title-bigger"/>
 
-  <Label text="Correo electrónico:"/>
-  <TextField fx:id="emailField"
-             promptText="ejemplo@correo.com"
-             styleClass="textfield-large"/>
+  <!-- Espaciador entre título y formulario -->
+  <Region minHeight="30"/>
 
-  <Label text="Contraseña:"/>
-  <PasswordField fx:id="passwordField"
-                 promptText="********"
-                 styleClass="passwordfield-large"/>
+  <!-- Campo Email -->
+  <Label text="Correo electrónico:" styleClass="form-label, label-large"/>
+  <TextField fx:id="emailField" promptText="ejemplo@correo.com" styleClass="input-large"/>
 
+  <!-- Campo Contraseña -->
+  <Label text="Contraseña:" styleClass="form-label, label-large"/>
+  <PasswordField fx:id="passwordField" promptText="********" styleClass="input-large"/>
+
+  <!-- Enlace para ir a Registro -->
   <Hyperlink text="¿No tienes cuenta? Regístrate aquí"
              onAction="#switchToRegister"
              styleClass="text-info"/>
 
+  <!-- Botón Login -->
   <Button text="Iniciar sesión"
           onAction="#handleLogin"
           styleClass="btn, btn-danger, btn-lg"/>
