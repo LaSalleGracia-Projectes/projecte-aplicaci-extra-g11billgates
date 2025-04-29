@@ -16,11 +16,10 @@ import java.sql.Statement;
 
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        scene.getStylesheets().add(getClass().getResource("@/css/custom-bootstrapfx.css").toExternalForm());
         stage.setTitle("TeamUp");
         stage.setScene(scene);
         stage.show();

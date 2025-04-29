@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-//TODO ARREGLAR EL REGISTER DESPUES DE PONER NUEVO METODO PARA IMPORTAR ERRORES
 public class RegisterController {
 
     private Stage stage ;
