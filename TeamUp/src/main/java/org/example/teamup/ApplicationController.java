@@ -52,16 +52,34 @@ public class ApplicationController {
     }
 
     @FXML
-    public void handleLogin(ActionEvent event){
+    public void handleLogin(ActionEvent event) {
         String email = emailField.getText();
         String password = passwordField.getText();
-        // Ejecutar la llamada a la API en un hilo aparte
+
         Task<Void> task = new Task<Void>() {
+            @Override
             protected Void call() throws Exception {
                 try {
-                    // Llamada a la función de login de AuthApiExample
                     AuthApiExample.login(email, password);
-                    Platform.runLater(() -> welcomeText.setText("Inicio de sesión exitoso."));
+
+                    // Cambio a MainView después de login exitoso
+                    Platform.runLater(() -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+                            Parent root = loader.load();
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+
+                            // Añadir los estilos de nuevo
+                            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+                            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 } catch (IOException ex) {
                     Platform.runLater(() -> welcomeText.setText("Error en login: " + ex.getMessage()));
                 }
@@ -70,7 +88,6 @@ public class ApplicationController {
         };
         new Thread(task).start();
     }
-
 
 
 }
