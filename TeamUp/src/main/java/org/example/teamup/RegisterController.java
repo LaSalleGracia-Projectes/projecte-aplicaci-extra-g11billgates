@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-//TODO ARREGLAR EL REGISTER DESPUES DE PONER NUEVO METODO PARA IMPORTAR ERRORES
 public class RegisterController {
 
     private Stage stage ;
@@ -48,12 +47,19 @@ public class RegisterController {
 
     @FXML
     public void switchToLogin(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+        Parent root = loader.load();
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+
+        // Aquí añadimos también otra vez los estilos
+        scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
         stage.setScene(scene);
         stage.show();
     }
+
 
     @FXML
     private void selectRegion(ActionEvent event) {
@@ -81,12 +87,27 @@ public class RegisterController {
             @Override
             protected Void call() throws Exception {
                 try {
-                    // Llamada al método de registro que realiza la petición a la API
                     String response = AuthApiExample.register(nombre, email, password, confirmPassword, edad, region);
-                    // Si el registro es exitoso, la API retornará un JSON con éxito
-                    Platform.runLater(() -> statusLabel.setText("Registro exitoso: " + response));
+
+                    // Cambio a MainView después de registro exitoso
+                    Platform.runLater(() -> {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+                            Parent root = loader.load();
+                            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+
+                            // Añadir los estilos de nuevo
+                            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+                            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 } catch (IOException ex) {
-                    // Si se recibe un error, se parsea el contenido JSON para extraer los mensajes
                     String errorResponse = AuthApiExample.getResponseError();
                     String errorMessages = parseErrorMessages(errorResponse);
                     Platform.runLater(() -> statusLabel.setText(errorMessages));
@@ -96,6 +117,7 @@ public class RegisterController {
         };
         new Thread(task).start();
     }
+
 
     /**
      * Método para parsear el JSON de errores y devolver un mensaje concatenado.

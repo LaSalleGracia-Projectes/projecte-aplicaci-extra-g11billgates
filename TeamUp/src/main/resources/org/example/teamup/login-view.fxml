@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.PasswordField?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.teamup.ApplicationController">
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.teamup.ApplicationController"
+      alignment="CENTER" spacing="20.0">
+
   <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    <Insets top="40.0" bottom="40.0" left="30.0" right="30.0"/>
   </padding>
 
-  <Label fx:id="welcomeText"/>
-  <Text fx:id="textoEmail" text="Ingrese su correo" />
-  <TextField fx:id="emailField"/>
-  <Text fx:id="textoContraseña" text="Ingrese su contraseña"/>
-  <PasswordField fx:id="passwordField" />
-  <Hyperlink text="Si no tienes una cuenta registrate" onAction="#switchToRegister"/>
-  <Button text="Login" onAction="#handleLogin"/>
+  <!-- Título -->
+  <Label fx:id="welcomeText" text="TeamUp" styleClass="h2, text-primary, title-bigger"/>
+
+  <!-- Espaciador entre título y formulario -->
+  <Region minHeight="30"/>
+
+  <!-- Campo Email -->
+  <Label text="Correo electrónico:" styleClass="form-label, label-large"/>
+  <TextField fx:id="emailField" promptText="ejemplo@correo.com" styleClass="input-large"/>
+
+  <!-- Campo Contraseña -->
+  <Label text="Contraseña:" styleClass="form-label, label-large"/>
+  <PasswordField fx:id="passwordField" promptText="********" styleClass="input-large"/>
+
+  <!-- Enlace para ir a Registro -->
+  <Hyperlink text="¿No tienes cuenta? Regístrate aquí"
+             onAction="#switchToRegister"
+             styleClass="text-info"/>
+
+  <!-- Botón Login -->
+  <Button text="Iniciar sesión"
+          onAction="#handleLogin"
+          styleClass="btn, btn-danger, btn-lg"/>
+
+  <!-- Mensaje de estado -->
+  <Label fx:id="statusLabel"/>
+
 </VBox>
+
