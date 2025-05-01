@@ -48,27 +48,45 @@
 
     <!-- Área de contenido -->
     <center>
-        <HBox spacing="20" alignment="CENTER_LEFT" styleClass="p-4">
+        <HBox spacing="20" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
 
-            <!-- Columna izquierda: Imagen -->
-            <VBox fx:id="imageContainer" alignment="TOP_LEFT" style="-fx-padding: 20 0 0 20;">
-                <ImageView fx:id="bienvenidaImage" fitWidth="600" preserveRatio="true"/>
-
+            <!-- Columna de la imagen (60%) -->
+            <VBox fx:id="imageContainer" alignment="CENTER" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                <ImageView fx:id="bienvenidaImage" preserveRatio="true" fitWidth="600"/>
             </VBox>
 
-            <!-- Columna derecha: Textos -->
-            <VBox fx:id="textContainer" spacing="10" alignment="TOP_LEFT"
-                  maxWidth="400" styleClass="text-column">
-            <Label text="¡Bienvenido a TeamUp!" styleClass="text-title"/>
-                <Label text="Explora partidas, encuentra compañeros y juega en equipo." wrapText="true" maxWidth="350"/>
-                <Label text="En el panel de la izquierda puedes navegar entre las secciones." wrapText="true" maxWidth="350"/>
-                <Label text="Disfruta la experiencia." wrapText="true" maxWidth="350"/>
-            </VBox>
+            <!-- Columna de texto y botones (40%) -->
+            <VBox fx:id="textContainer" spacing="15" alignment="TOP_CENTER" maxWidth="Infinity" HBox.hgrow="ALWAYS">
 
+                <!-- Área de texto con fondo gris oscuro -->
+                <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="300" style="-fx-background-color: transparent;">
+                    <VBox spacing="10" alignment="TOP_LEFT" style="-fx-background-color: #2e2e2e; -fx-background-radius: 5;">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <Label text="¡Bienvenido a TeamUp!" styleClass="titulo-principal" wrapText="true" maxWidth="400"/>
+                        <Label text="Explora partidas, encuentra compañeros y juega en equipo."
+                               styleClass="bienvenida-label" wrapText="true" maxWidth="400"/>
+                        <Label text="En el panel de la izquierda puedes navegar entre las secciones."
+                               styleClass="bienvenida-label" wrapText="true" maxWidth="400"/>
+                        <Label text="Disfruta la experiencia."
+                               styleClass="bienvenida-label" wrapText="true" maxWidth="400"/>
+                    </VBox>
+                </ScrollPane>
+
+                <HBox spacing="20" alignment="CENTER">
+                    <padding>
+                        <Insets top="10" bottom="10" left="20" right="20"/>
+                    </padding>
+                    <Button text="✔" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                    <Button text="❌" style="-fx-background-color: #D32F2F; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
         </HBox>
     </center>
-
-
 
 
 

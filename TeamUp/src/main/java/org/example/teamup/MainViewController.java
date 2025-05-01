@@ -20,7 +20,7 @@ public class MainViewController {
     @FXML
     public void initialize() {
         // Cargar imagen
-        Image image = new Image(getClass().getResource("/org/example/teamup/images/harambe_ancho.jpg").toExternalForm());
+        Image image = new Image(getClass().getResource("/org/example/teamup/images/harambe_vertical.jpg").toExternalForm());
         bienvenidaImage.setImage(image);
         bienvenidaImage.setFitWidth(600); // Puedes ajustar si quieres tamaño inicial
 

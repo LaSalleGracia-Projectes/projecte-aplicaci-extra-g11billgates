@@ -79,5 +79,18 @@
     -fx-font-size: 16px;
     -fx-text-fill: #333333;
 }
+.titulo-principal {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/*.label {
+    -fx-text-fill: white;
+}
+*/
+.bienvenida-label {
+    -fx-text-fill: white;
+}
 
 
