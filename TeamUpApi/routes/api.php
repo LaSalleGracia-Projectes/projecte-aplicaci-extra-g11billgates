@@ -28,3 +28,4 @@ Route::get('/chats/{idChat}/messages', [ChatController::class, 'getMessagesFromC
 //rutas de match
 Route::post('/matches', [MatchController::class, 'store'])->middleware('auth:sanctum');
 Route::post('/likes', [MatchController::class, 'like'])->middleware('auth:sanctum');
+Route::delete('/likes/received', [MatchController::class, 'unlikeReceived'])->middleware('auth:sanctum');
