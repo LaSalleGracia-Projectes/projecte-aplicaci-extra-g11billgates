@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\MessageSent;
 use App\Models\Mensaje;
 use App\Models\Chat;
+use App\Models\MatchUsers;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -27,7 +28,7 @@ class ChatController extends Controller
             'IDChat' => $request->IDChat,
             'IDUsuario' => auth()->id(),
             'Tipo' => $request->Tipo,
-            'FechaEnvio' => now(),
+            'FechaEnvio' => $request->FechaEnvio,
             'Texto' => $request->Texto,
         ]);
 
@@ -63,5 +64,26 @@ class ChatController extends Controller
         return response()->json([
             'mensajes' => $mensajes
         ]);
+    }
+
+    public function destroy($id)
+    {
+        $userId = auth()->id();
+
+        $chat = Chat::find($id);
+
+        if (!$chat) {
+            return response()->json(['message' => 'Chat no encontrado.'], 404);
+        }
+
+        $match = MatchUsers::find($chat->IDMatch);
+
+        if (!$match || ($match->IDUsuario1 !== $userId && $match->IDUsuario2 !== $userId)) {
+            return response()->json(['message' => 'No tienes permiso para eliminar este chat.'], 403);
+        }
+
+        $chat->delete();
+
+        return response()->json(['message' => 'Chat eliminado correctamente.'], 200);
     }
 }

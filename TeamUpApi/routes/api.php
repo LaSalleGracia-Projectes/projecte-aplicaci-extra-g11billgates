@@ -23,6 +23,8 @@ Route::post('/chats', [ChatController::class, 'storeChat'])->middleware('auth:sa
 //ruta para ver un chat concreto con todos sus mensajes
 Route::get('/chats/{idChat}/messages', [ChatController::class, 'getMessagesFromChat'])
     ->middleware(['auth:sanctum', EnsureUserInChatMatch::class]);
+Route::delete('/chats/{id}', [ChatController::class, 'destroy'])->middleware('auth:sanctum');
+
 
 
 //rutas de match
