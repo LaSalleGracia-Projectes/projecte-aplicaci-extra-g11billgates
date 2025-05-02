@@ -38,14 +38,6 @@ class UsrController extends Controller
     }
     public function getUserById($id)
     {
-        $usuarioAuth = auth()->id(); // ID del usuario autenticado
-
-        if ((int)$id !== $usuarioAuth) {
-            return response()->json([
-                'message' => 'No tienes permiso para acceder a esta información.'
-            ], 403);
-        }
-
         $usuario = Usuario::find($id);
 
         if (!$usuario) {
