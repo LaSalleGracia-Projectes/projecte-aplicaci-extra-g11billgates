@@ -31,3 +31,4 @@ Route::delete('/chats/{id}', [ChatController::class, 'destroy'])->middleware('au
 Route::post('/matches', [MatchController::class, 'store'])->middleware('auth:sanctum');
 Route::post('/likes', [MatchController::class, 'like'])->middleware('auth:sanctum');
 Route::delete('/likes/received', [MatchController::class, 'unlikeReceived'])->middleware('auth:sanctum');
+Route::post('/match/check', [MatchController::class, 'checkMutualLike'])->middleware('auth:sanctum');

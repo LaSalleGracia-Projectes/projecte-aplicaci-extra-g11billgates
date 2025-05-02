@@ -80,5 +80,21 @@ class MatchController extends Controller
             'message' => 'Like eliminado correctamente.'
         ], 200);
     }
+    public function checkMutualLike(Request $request)
+    {
+        $request->validate([
+            'IDUsuario2' => 'required|integer|exists:users,id',
+        ]);
 
+        $IDUsuario1 = auth()->id();
+        $IDUsuario2 = $request->IDUsuario2;
+
+        $likeInverso = Like::where('IDUsuario1', $IDUsuario2)
+                            ->where('IDUsuario2', $IDUsuario1)
+                            ->exists();
+
+        return response()->json([
+            'match' => $likeInverso
+        ]);
+    }
 }
