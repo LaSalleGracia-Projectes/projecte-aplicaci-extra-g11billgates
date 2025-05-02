@@ -32,3 +32,4 @@ Route::post('/matches', [MatchController::class, 'store'])->middleware('auth:san
 Route::post('/likes', [MatchController::class, 'like'])->middleware('auth:sanctum');
 Route::delete('/likes/received', [MatchController::class, 'unlikeReceived'])->middleware('auth:sanctum');
 Route::post('/match/check', [MatchController::class, 'checkMutualLike'])->middleware('auth:sanctum');
+Route::delete('/match', [MatchController::class, 'deleteMatch'])->middleware('auth:sanctum');

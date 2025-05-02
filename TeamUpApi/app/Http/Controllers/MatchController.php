@@ -97,4 +97,33 @@ class MatchController extends Controller
             'match' => $likeInverso
         ]);
     }
+
+    public function deleteMatch(Request $request)
+    {
+        $request->validate([
+            'IDUsuario2' => 'required|integer|exists:users,id',
+        ]);
+
+        $IDUsuario1 = auth()->id();
+        $IDUsuario2 = $request->IDUsuario2;
+
+        $match = MatchUsers::where(function ($q) use ($IDUsuario1, $IDUsuario2) {
+                        $q->where('IDUsuario1', $IDUsuario1)
+                        ->where('IDUsuario2', $IDUsuario2);
+                    })
+                    ->orWhere(function ($q) use ($IDUsuario1, $IDUsuario2) {
+                        $q->where('IDUsuario1', $IDUsuario2)
+                        ->where('IDUsuario2', $IDUsuario1);
+                    })
+                    ->first();
+
+        if (!$match) {
+            return response()->json(['message' => 'No existe un match con ese usuario.'], 404);
+        }
+
+        $match->delete();
+
+        return response()->json(['message' => 'Match eliminado correctamente.'], 200);
+    }
+
 }
