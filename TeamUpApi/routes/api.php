@@ -15,7 +15,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 Route::post('/user/foto-perfil', [UsrController::class, 'subirFotoPerfil'])->middleware('auth:sanctum');
-Route::get('/usuarios/{id}', [UsrController::class, 'getUserById'])->middleware('auth:sanctum');
+Route::get('/usuario/{id}', [UsrController::class, 'getUserById'])->middleware('auth:sanctum');
+Route::get('/usuarios/aleatorio', [UsrController::class, 'getRandomUserId'])->middleware('auth:sanctum');
 
 
 

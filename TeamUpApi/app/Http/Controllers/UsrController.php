@@ -48,4 +48,24 @@ class UsrController extends Controller
 
         return response()->json($usuario);
     }
+    public function getRandomUserId(Request $request)
+    {
+        $excludedId = auth()->id();
+
+        // Obtener todos los IDs válidos desde el 6 en adelante, excluyendo el actual
+        $ids = Usuario::where('id', '>=', 6)
+                    ->when($excludedId, fn($q) => $q->where('id', '!=', $excludedId))
+                    ->pluck('id')
+                    ->toArray();
+
+        if (empty($ids)) {
+            return response()->json(['message' => 'No hay usuarios disponibles.'], 404);
+        }
+
+        // Seleccionar uno aleatoriamente
+        $randomId = $ids[array_rand($ids)];
+
+        return response()->json(['random_user_id' => $randomId]);
+    }
+
 }
