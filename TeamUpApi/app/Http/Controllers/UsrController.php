@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Usuario;
 
 class UsrController extends Controller
 {
@@ -18,7 +19,7 @@ class UsrController extends Controller
     public function subirFotoPerfil(Request $request)
     {
         $request->validate([
-            'foto' => 'required|image|max:2048', // Máx. 2MB
+            'foto' => 'required|image|max:2048', 
         ]);
 
         $user = auth()->user();
@@ -34,5 +35,25 @@ class UsrController extends Controller
             'message' => 'Foto de perfil actualizada correctamente.',
             'foto_url' => asset('storage/' . $ruta),
         ]);
+    }
+    public function getUserById($id)
+    {
+        $usuarioAuth = auth()->id(); // ID del usuario autenticado
+
+        if ((int)$id !== $usuarioAuth) {
+            return response()->json([
+                'message' => 'No tienes permiso para acceder a esta información.'
+            ], 403);
+        }
+
+        $usuario = Usuario::find($id);
+
+        if (!$usuario) {
+            return response()->json([
+                'message' => 'Usuario no encontrado.'
+            ], 404);
+        }
+
+        return response()->json($usuario);
     }
 }
