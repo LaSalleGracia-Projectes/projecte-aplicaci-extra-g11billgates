@@ -5,14 +5,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MatchController;
+use App\Http\Controllers\UsrController;
 use App\Http\Middleware\RegisterMiddleware;
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\EnsureUserInChatMatch;
 
+//Rutas de usuario
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+Route::post('/user/foto-perfil', [UsrController::class, 'subirFotoPerfil'])->middleware('auth:sanctum');
 
+
+//Login y register
 Route::post('register', [AuthController::class, 'register'])->middleware(RegisterMiddleware::class);
 Route::post('login', [AuthController::class, 'login'])->middleware(LoginMiddleware::class);
 
