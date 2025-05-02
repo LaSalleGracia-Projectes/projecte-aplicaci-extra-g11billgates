@@ -17,6 +17,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/user/foto-perfil', [UsrController::class, 'subirFotoPerfil'])->middleware('auth:sanctum');
 Route::get('/usuario/{id}', [UsrController::class, 'getUserById'])->middleware('auth:sanctum');
 Route::get('/usuarios/aleatorio', [UsrController::class, 'getRandomUserId'])->middleware('auth:sanctum');
+Route::delete('/usuarios/{id}', [UsrController::class, 'destroy'])->middleware('auth:sanctum');
 
 
 
@@ -41,3 +42,4 @@ Route::post('/likes', [MatchController::class, 'like'])->middleware('auth:sanctu
 Route::delete('/likes/received', [MatchController::class, 'unlikeReceived'])->middleware('auth:sanctum');
 Route::post('/match/check', [MatchController::class, 'checkMutualLike'])->middleware('auth:sanctum');
 Route::delete('/match', [MatchController::class, 'deleteMatch'])->middleware('auth:sanctum');
+
