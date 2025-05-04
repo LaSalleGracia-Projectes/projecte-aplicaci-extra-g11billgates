@@ -1,14 +1,15 @@
 package org.example.teamup;
 
-
 import com.google.gson.Gson;
-import org.example.teamup.API.UserApiExample;
-import org.example.teamup.models.UsuarioDTO;
-
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.example.teamup.API.UserApiExample;
+import org.example.teamup.models.UsuarioDTO;
+import org.example.teamup.API.AuthSession;
 
 public class MainViewController {
 
@@ -18,9 +19,11 @@ public class MainViewController {
     private VBox imageContainer;
     @FXML
     private VBox textContainer;
+    @FXML
+    private Label tituloLabel;
 
-    private UsuarioDTO usuario; // aquí guardamos el usuario aleatorio
-    private final String token = "TU_TOKEN"; // ⚠️ Sustituye por el token real o pásalo desde login
+    private UsuarioDTO usuario;
+    private final String token = AuthSession.getToken();
 
     @FXML
     public void initialize() {
@@ -56,14 +59,15 @@ public class MainViewController {
                 Gson gson = new Gson();
                 usuario = gson.fromJson(userJson, UsuarioDTO.class);
 
-                // Aquí ya tienes todos los datos en 'usuario'
-                System.out.println("Usuario recibido:");
-                System.out.println("Nombre: " + usuario.Nombre);
-                System.out.println("Edad: " + usuario.Edad);
-                System.out.println("Región: " + usuario.Region);
-                System.out.println("FotoPerfil: " + usuario.FotoPerfil);
+                // Actualizar UI en el hilo de JavaFX
+                Platform.runLater(() -> {
+                    // Cambiar título
+                    tituloLabel.setText(usuario.Nombre + " " + usuario.Edad);
 
-                // Luego puedes usar Platform.runLater(...) para actualizar la vista si hace falta
+                    // Mostrar imagen de perfil desde backend
+                    String fotoUrl = "http://localhost:8000/storage/" + usuario.FotoPerfil;
+                    bienvenidaImage.setImage(new Image(fotoUrl));
+                });
 
             } catch (Exception e) {
                 System.out.println("Error al cargar usuario aleatorio:");
@@ -72,3 +76,4 @@ public class MainViewController {
         }).start();
     }
 }
+

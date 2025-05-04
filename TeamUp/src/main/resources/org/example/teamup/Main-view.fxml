@@ -67,7 +67,7 @@
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-                        <Label text="¡Bienvenido a TeamUp!" styleClass="titulo-principal" wrapText="true" maxWidth="400"/>
+                        <Label fx:id="tituloLabel" text="¡Bienvenido a TeamUp!" styleClass="titulo-principal" wrapText="true" maxWidth="400"/>
                         <Label text="Explora partidas, encuentra compañeros y juega en equipo."
                                styleClass="bienvenida-label" wrapText="true" maxWidth="400"/>
                         <Label text="En el panel de la izquierda puedes navegar entre las secciones."
