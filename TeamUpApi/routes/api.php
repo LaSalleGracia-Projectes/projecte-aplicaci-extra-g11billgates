@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MatchController;
 use App\Http\Controllers\UsrController;
+use App\Http\Controllers\JuegoController;
 use App\Http\Middleware\RegisterMiddleware;
 use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\EnsureUserInChatMatch;
@@ -18,8 +19,6 @@ Route::post('/user/foto-perfil', [UsrController::class, 'subirFotoPerfil'])->mid
 Route::get('/usuario/{id}', [UsrController::class, 'getUserById'])->middleware('auth:sanctum');
 Route::get('/usuarios/aleatorio', [UsrController::class, 'getRandomUserId'])->middleware('auth:sanctum');
 Route::delete('/usuarios/{id}', [UsrController::class, 'destroy'])->middleware('auth:sanctum');
-
-
 
 //Login y register
 Route::post('register', [AuthController::class, 'register'])->middleware(RegisterMiddleware::class);
@@ -34,8 +33,6 @@ Route::get('/chats/{idChat}/messages', [ChatController::class, 'getMessagesFromC
     ->middleware(['auth:sanctum', EnsureUserInChatMatch::class]);
 Route::delete('/chats/{id}', [ChatController::class, 'destroy'])->middleware('auth:sanctum');
 
-
-
 //rutas de match
 Route::post('/matches', [MatchController::class, 'store'])->middleware('auth:sanctum');
 Route::post('/likes', [MatchController::class, 'like'])->middleware('auth:sanctum');
@@ -43,3 +40,6 @@ Route::delete('/likes/received', [MatchController::class, 'unlikeReceived'])->mi
 Route::post('/match/check', [MatchController::class, 'checkMutualLike'])->middleware('auth:sanctum');
 Route::delete('/match', [MatchController::class, 'deleteMatch'])->middleware('auth:sanctum');
 
+//Rutas de juego
+Route::post('/juego', [JuegoController::class, 'añadirJuego'])->middleware('auth:sanctum');
+Route::delete('/juego', [JuegoController::class, 'borrarJuego'])->middleware('auth:sanctum');

@@ -43,8 +43,10 @@ class Usuario extends Model
     //relacion a juego n:m
     public function juego(): BelongsToMany
     {
-        return $this->belongsToMany(Juego::class)->withPivot('Estadisticas', 'Preferencias', 'NivelElo');
+        return $this->belongsToMany(Juego::class, 'juegousuario', 'IDUsuario', 'IDJuego')
+            ->withPivot('Estadisticas', 'Preferencias', 'NivelElo');
     }
+
     // relacion a mensaje 1:n
     public function mensaje()
     {

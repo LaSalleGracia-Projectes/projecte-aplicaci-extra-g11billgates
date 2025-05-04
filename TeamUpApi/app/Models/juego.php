@@ -18,9 +18,10 @@ class Juego extends Model
         'Descripcion'
     ];
 
-    //relcion a usuario n:m tabla pivote juegousuario
     public function usuario(): BelongsToMany
     {
-        return $this->belongsToMany(Juego::class)->withPivot('Estadisticas', 'Preferencias', 'NivelElo');
+        return $this->belongsToMany(Usuario::class, 'juegousuario', 'IDJuego', 'IDUsuario')
+            ->withPivot('Estadisticas', 'Preferencias', 'NivelElo');
     }
+
 }
