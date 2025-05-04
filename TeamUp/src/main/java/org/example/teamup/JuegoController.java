@@ -2,6 +2,7 @@ package org.example.teamup;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,10 +14,16 @@ import org.example.teamup.API.AuthSession;
 import org.example.teamup.API.JuegoApiExample;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
+
+import javafx.event.ActionEvent;
 import java.io.IOException;
 
 public class JuegoController {
+
+    private final Map<String, Integer> juegosMap = new HashMap<>();
 
     @FXML
     private VBox juegosContainer;
@@ -32,7 +39,13 @@ public class JuegoController {
         cargarJuegos();
 
         guardarBtn.setOnAction(event -> guardarJuegoSeleccionado());
-        inicioBtn.setOnAction(event -> irAInicio());
+        inicioBtn.setOnAction(event -> {
+            try {
+                irAInicio(event);
+            } catch (IOException e) {
+                System.out.println("Error al volver al inicio: " + e.getMessage());
+            }
+        });
     }
 
     private void cargarJuegos() {
@@ -47,6 +60,8 @@ public class JuegoController {
                     String nombre = juego.getString("NombreJuego");
                     int id = juego.getInt("IDJuego");
 
+                    juegosMap.put(nombre, id); // Guardar nombre -> id
+
                     RadioButton rb = new RadioButton(nombre);
                     rb.setUserData(id);
                     rb.setToggleGroup(toggleGroup);
@@ -58,6 +73,7 @@ public class JuegoController {
             }
         }).start();
     }
+
 
     private void guardarJuegoSeleccionado() {
         RadioButton seleccionado = (RadioButton) toggleGroup.getSelectedToggle();
@@ -82,14 +98,20 @@ public class JuegoController {
         }).start();
     }
 
-    private void irAInicio() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/MainView.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) inicioBtn.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            System.out.println("Error al volver al inicio: " + e.getMessage());
-        }
+    @FXML
+    public void irAInicio(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/MainView.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+
+        // Añadir estilos
+        scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+        scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+
+        stage.setScene(scene);
+        stage.show();
     }
+
+
 }

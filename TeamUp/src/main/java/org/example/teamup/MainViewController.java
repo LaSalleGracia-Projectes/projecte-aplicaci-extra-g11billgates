@@ -112,7 +112,7 @@ public class MainViewController {
     }
     private void irAJuegos() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/JuegoView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/juego-view.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) juegosButton.getScene().getWindow();
             stage.setScene(new Scene(root));

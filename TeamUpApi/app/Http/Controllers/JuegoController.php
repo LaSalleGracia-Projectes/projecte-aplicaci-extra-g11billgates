@@ -11,7 +11,7 @@ class JuegoController extends Controller
     public function añadirJuego(Request $request)
     {
         $request->validate([
-            'juego_id' => 'required|exists:juego,IDJuego',
+            'juego_id' => 'required|exists:juegos,IDJuego',
         ]);
 
         $user = auth()->user(); // ✅

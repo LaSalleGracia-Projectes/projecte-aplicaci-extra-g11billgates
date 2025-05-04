@@ -55,12 +55,12 @@ public class JuegoApiExample {
         return response.toString();
     }
     public static String addJuego(int juegoId, String bearerToken) throws IOException {
-        String url = "http://127.0.0.1:8000/api/usuario/juego";
+        String url = "http://127.0.0.1:8000/api/juego";
         String json = String.format("{\"juego_id\": %d}", juegoId);
         return sendRequest("POST", url, bearerToken, json);
     }
     public static String removeJuego(int juegoId, String bearerToken) throws IOException {
-        String url = "http://127.0.0.1:8000/api/usuario/juego";
+        String url = "http://127.0.0.1:8000/api/juego";
         String json = String.format("{\"juego_id\": %d}", juegoId);
         return sendRequest("DELETE", url, bearerToken, json);
     }
