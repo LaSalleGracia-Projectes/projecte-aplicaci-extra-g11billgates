@@ -67,9 +67,10 @@ public class UserApiExample {
     /**
      * Prueba de getRandomUserId
      */
+    /*
     public static void main(String[] args) {
         try {
-            String token = "60|eago6OQpQ10N9I9l6W9sY5E5ByDNRbvRqDSFoZ4z7a6ea73c"; // Reemplaza con un token válido
+            String token = "60|eago6OQpQ10N9I9l6W9sY5E5ByDNRbvRqDSFoZ4z7a6ea73c";
             int randomId = getRandomUserId(token);
             System.out.println("ID de usuario aleatorio: " + randomId);
         } catch (IOException e) {
@@ -77,4 +78,5 @@ public class UserApiExample {
             System.out.println(getResponseError());
         }
     }
+    */
 }
