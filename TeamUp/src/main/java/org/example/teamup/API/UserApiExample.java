@@ -63,6 +63,10 @@ public class UserApiExample {
 
         return Integer.parseInt(idStr);
     }
+    public static String getUserById(int id, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/usuarios/" + id;
+        return sendGetRequest(url, bearerToken);
+    }
 
     /**
      * Prueba de getRandomUserId

@@ -12,6 +12,7 @@ module org.example.teamup {
     requires com.almasb.fxgl.all;
     requires org.json;
     requires com.google.gson;
+    requires java.sql;
 
     opens org.example.teamup to javafx.fxml;
     exports org.example.teamup;
