@@ -82,7 +82,7 @@
                         <Insets top="10" bottom="10" left="20" right="20"/>
                     </padding>
                     <Button fx:id="likeButton" text="✔" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-                    <Button text="❌" style="-fx-background-color: #D32F2F; -fx-text-fill: white;"/>
+                    <Button fx:id="dislikeButton" text="❌" style="-fx-background-color: #D32F2F; -fx-text-fill: white;"/>
                 </HBox>
             </VBox>
         </HBox>
