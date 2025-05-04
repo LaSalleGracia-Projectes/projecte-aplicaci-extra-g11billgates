@@ -29,6 +29,7 @@ public class ChatController {
     @FXML
     private Button volverBtn;
 
+
     private int idChat;
 
     public void setIdChat(int idChat) {

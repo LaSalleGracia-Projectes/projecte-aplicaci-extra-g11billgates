@@ -35,6 +35,10 @@ public class MainViewController {
     private VBox textContainer;
     @FXML
     private Label tituloLabel;
+    @FXML
+    private Button chatsButton;
+
+
 
     private UsuarioDTO usuario;
     private final String token = AuthSession.getToken();
@@ -45,6 +49,8 @@ public class MainViewController {
         cargarUsuarioAleatorio();
         likeButton.setOnAction(event -> handleLikeAndCheckMatch());
         juegosButton.setOnAction(event -> irAJuegos());
+        chatsButton.setOnAction(event -> irAChats());
+
 
     }
 
@@ -120,5 +126,20 @@ public class MainViewController {
             System.out.println("Error al ir a la vista de juegos: " + e.getMessage());
         }
     }
+    private void irAChats() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/ChatView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) chatsButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error al ir a la vista de chats: " + e.getMessage());
+        }
+    }
+
 
 }
