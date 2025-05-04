@@ -49,16 +49,29 @@ public class UserApiExample {
         return response.toString();
     }
 
-    // Prueba directa del método
+    /**
+     * Llama al endpoint /api/usuarios/aleatorio y devuelve el ID como int
+     */
+    public static int getRandomUserId(String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/usuarios/aleatorio";
+        String json = sendGetRequest(url, bearerToken);
+
+        // Espera respuesta como: { "random_user_id": 9 }
+        int idStart = json.indexOf(":") + 1;
+        int idEnd = json.indexOf("}", idStart);
+        String idStr = json.substring(idStart, idEnd).trim();
+
+        return Integer.parseInt(idStr);
+    }
+
+    /**
+     * Prueba de getRandomUserId
+     */
     public static void main(String[] args) {
         try {
-            // Reemplaza este token por uno real obtenido al hacer login
-            String token = "58|3u76qw5OKi3D7YCi7JII5KqAH0PBlJRZJvZnYZea734ed234";
-            String url = "http://127.0.0.1:8000/api/usuario/9"; // endpoint de prueba
-
-            String response = sendGetRequest(url, token);
-            System.out.println("Respuesta del servidor:");
-            System.out.println(response);
+            String token = "60|eago6OQpQ10N9I9l6W9sY5E5ByDNRbvRqDSFoZ4z7a6ea73c"; // Reemplaza con un token válido
+            int randomId = getRandomUserId(token);
+            System.out.println("ID de usuario aleatorio: " + randomId);
         } catch (IOException e) {
             System.out.println("ERROR:");
             System.out.println(getResponseError());
