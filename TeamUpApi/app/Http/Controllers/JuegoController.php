@@ -33,4 +33,9 @@ class JuegoController extends Controller
 
         return response()->json(['message' => 'Juego eliminado del usuario.']);
     }
+
+    public function index()
+    {
+        return response()->json(Juego::all());
+    }
 }
