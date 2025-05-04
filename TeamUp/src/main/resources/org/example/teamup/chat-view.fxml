@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.teamup.ChatController">
+
+    <!-- Barra lateral -->
+    <left>
+        <VBox spacing="20" prefWidth="220" styleClass="bg-danger" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="30" bottom="30" left="20" right="10"/>
+            </padding>
+
+            <Button text="Inicio" fx:id="inicioBtn" styleClass="sidebar-btn"/>
+            <Button text="Match" styleClass="sidebar-btn"/>
+            <Button text="Juegos" styleClass="sidebar-btn"/>
+            <Button text="Chats" styleClass="sidebar-btn"/>
+            <Button text="Perfil" styleClass="sidebar-btn"/>
+        </VBox>
+    </left>
+
+    <!-- Barra superior -->
+    <top>
+        <HBox spacing="10" prefHeight="40" styleClass="top-bar" alignment="CENTER">
+            <padding>
+                <Insets top="5" bottom="5" left="15" right="15"/>
+            </padding>
+
+            <Label text="🔔" styleClass="top-button"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="TeamUp" styleClass="top-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="⚙" styleClass="top-button"/>
+        </HBox>
+    </top>
+
+    <!-- Centro con mensajes -->
+    <center>
+        <VBox spacing="10" alignment="TOP_CENTER" padding="20">
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true">
+                <VBox fx:id="mensajesContainer" spacing="10"/>
+            </ScrollPane>
+
+            <HBox spacing="10" alignment="CENTER">
+                <TextField fx:id="mensajeField" promptText="Escribe tu mensaje..." HBox.hgrow="ALWAYS"/>
+                <Button fx:id="enviarBtn" text="Enviar" styleClass="btn btn-danger btn-lg"/>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

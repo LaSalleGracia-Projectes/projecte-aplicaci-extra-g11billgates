@@ -86,7 +86,7 @@ public class ChatController {
 
     private void volverInicio(javafx.event.ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/main-view.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
