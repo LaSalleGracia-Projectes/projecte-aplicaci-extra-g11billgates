@@ -64,5 +64,9 @@ public class JuegoApiExample {
         String json = String.format("{\"juego_id\": %d}", juegoId);
         return sendRequest("DELETE", url, bearerToken, json);
     }
+    public static String obtenerTodosLosJuegos(String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/juegos";
+        return sendRequest("GET", url, bearerToken, null);
+    }
 
 }
