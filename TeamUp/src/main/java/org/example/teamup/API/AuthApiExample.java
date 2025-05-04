@@ -3,6 +3,8 @@ package org.example.teamup.API;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import org.example.teamup.API.AuthSession;
+import org.json.JSONObject;
 
 public class AuthApiExample {
 
@@ -86,7 +88,22 @@ public class AuthApiExample {
         String url = "http://127.0.0.1:8000/api/login";
         String jsonInputString = String.format("{\"email\": \"%s\", \"password\": \"%s\"}", email, password);
         System.out.println("Iniciando sesión...");
-        return sendPostRequest(url, jsonInputString);
+
+        String response = sendPostRequest(url, jsonInputString);
+
+        // Extraer token y guardarlo en sesión
+        try {
+            JSONObject json = new JSONObject(response);
+            String token = json.getJSONObject("token").getString("plainTextToken"); // ✅
+            AuthSession.setToken(token);
+            System.out.println("Token guardado: " + token);
+            AuthSession.setToken(token);
+            System.out.println("Token guardado: " + token);
+        } catch (Exception e) {
+            System.out.println("Error al extraer token: " + e.getMessage());
+        }
+
+        return response;
     }
 
     /*

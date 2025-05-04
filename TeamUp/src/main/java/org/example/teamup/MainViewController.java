@@ -27,15 +27,8 @@ public class MainViewController {
 
     @FXML
     public void initialize() {
-        cargarImagenFondo();
         ajustarLayout();
         cargarUsuarioAleatorio();
-    }
-
-    private void cargarImagenFondo() {
-        Image image = new Image(getClass().getResource("/org/example/teamup/images/harambe_vertical.jpg").toExternalForm());
-        bienvenidaImage.setImage(image);
-        bienvenidaImage.setFitWidth(600);
     }
 
     private void ajustarLayout() {
@@ -59,14 +52,10 @@ public class MainViewController {
                 Gson gson = new Gson();
                 usuario = gson.fromJson(userJson, UsuarioDTO.class);
 
-                // Actualizar UI en el hilo de JavaFX
                 Platform.runLater(() -> {
-                    // Cambiar título
                     tituloLabel.setText(usuario.Nombre + " " + usuario.Edad);
-
-                    // Mostrar imagen de perfil desde backend
                     String fotoUrl = "http://localhost:8000/storage/" + usuario.FotoPerfil;
-                    bienvenidaImage.setImage(new Image(fotoUrl));
+                    bienvenidaImage.setImage(new Image(fotoUrl, true));
                 });
 
             } catch (Exception e) {
@@ -76,4 +65,3 @@ public class MainViewController {
         }).start();
     }
 }
-
