@@ -18,7 +18,7 @@
             <Button text="Inicio" styleClass="sidebar-btn"/>
             <Button text="Match" styleClass="sidebar-btn"/>
             <Button fx:id="juegosButton" text="Juegos" styleClass="sidebar-btn"/>
-            <Button text="Chats" styleClass="sidebar-btn"/>
+            <Button fx:id="chatsButton" text="Chats" styleClass="sidebar-btn"/>
             <Button text="Perfil" styleClass="sidebar-btn"/>
 
         </VBox>
