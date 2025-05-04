@@ -15,5 +15,6 @@ module org.example.teamup {
     requires java.sql;
 
     opens org.example.teamup to javafx.fxml;
+    opens org.example.teamup.models to com.google.gson;
     exports org.example.teamup;
 }

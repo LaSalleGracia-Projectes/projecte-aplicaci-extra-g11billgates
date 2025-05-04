@@ -7,4 +7,6 @@ public class UsuarioDTO {
     public String FotoPerfil;
     public int Edad;
     public String Region;
+    public UsuarioDTO() {
+    }
 }
