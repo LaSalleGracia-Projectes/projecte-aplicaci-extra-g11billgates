@@ -39,7 +39,7 @@ public class JuegoController {
         new Thread(() -> {
             try {
                 String token = AuthSession.getToken();
-                String jsonResponse = JuegoApiExample.(token);
+                String jsonResponse = JuegoApiExample.obtenerTodosLosJuegos(token);
                 JSONArray juegos = new JSONArray(jsonResponse);
 
                 for (int i = 0; i < juegos.length(); i++) {
@@ -67,10 +67,17 @@ public class JuegoController {
 
         new Thread(() -> {
             try {
+                // Intentar agregar el juego primero
                 JuegoApiExample.addJuego(idJuego, AuthSession.getToken());
-                System.out.println("Juego guardado: " + idJuego);
-            } catch (IOException e) {
-                System.out.println("Error al guardar juego: " + e.getMessage());
+                System.out.println("Juego agregado: " + idJuego);
+            } catch (IOException addEx) {
+                // Si el juego ya estaba agregado, lo eliminamos
+                try {
+                    JuegoApiExample.removeJuego(idJuego, AuthSession.getToken());
+                    System.out.println("Juego eliminado: " + idJuego);
+                } catch (IOException deleteEx) {
+                    System.out.println("Error al agregar/eliminar juego: " + deleteEx.getMessage());
+                }
             }
         }).start();
     }
