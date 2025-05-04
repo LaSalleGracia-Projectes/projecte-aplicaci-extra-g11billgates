@@ -3,11 +3,15 @@ package org.example.teamup;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.example.teamup.API.MatchApiExample;
 import org.example.teamup.API.UserApiExample;
 import org.example.teamup.models.UsuarioDTO;
@@ -19,6 +23,8 @@ public class MainViewController {
 
     @FXML
     private Button dislikeButton;
+    @FXML
+    private Button juegosButton;
     @FXML
     private ImageView bienvenidaImage;
     @FXML
@@ -38,6 +44,8 @@ public class MainViewController {
         ajustarLayout();
         cargarUsuarioAleatorio();
         likeButton.setOnAction(event -> handleLikeAndCheckMatch());
+        juegosButton.setOnAction(event -> irAJuegos());
+
     }
 
     private void ajustarLayout() {
@@ -102,4 +110,15 @@ public class MainViewController {
             }
         }).start();
     }
+    private void irAJuegos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/JuegoView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) juegosButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            System.out.println("Error al ir a la vista de juegos: " + e.getMessage());
+        }
+    }
+
 }
