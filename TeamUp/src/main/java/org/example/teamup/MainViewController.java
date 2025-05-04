@@ -3,18 +3,24 @@ package org.example.teamup;
 import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import org.example.teamup.API.MatchApiExample;
 import org.example.teamup.API.UserApiExample;
 import org.example.teamup.models.UsuarioDTO;
 import org.example.teamup.API.AuthSession;
+
+import java.io.IOException;
 
 public class MainViewController {
 
     @FXML
     private ImageView bienvenidaImage;
+    @FXML
+    private Button likeButton;
     @FXML
     private VBox imageContainer;
     @FXML
@@ -29,6 +35,7 @@ public class MainViewController {
     public void initialize() {
         ajustarLayout();
         cargarUsuarioAleatorio();
+        likeButton.setOnAction(event -> handleLikeButton());
     }
 
     private void ajustarLayout() {
@@ -64,4 +71,19 @@ public class MainViewController {
             }
         }).start();
     }
+    private void handleLikeButton() {
+        if (usuario == null) return;
+
+        new Thread(() -> {
+            try {
+                String response = MatchApiExample.like(usuario.id, AuthSession.getToken());
+                System.out.println("Like enviado: " + response);
+                // Aquí podrías mostrar una notificación visual si quieres
+            } catch (IOException e) {
+                System.out.println("Error al enviar like:");
+                System.out.println(MatchApiExample.getResponseError());
+            }
+        }).start();
+    }
+
 }
