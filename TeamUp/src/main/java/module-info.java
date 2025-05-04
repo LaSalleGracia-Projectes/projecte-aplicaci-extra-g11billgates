@@ -10,8 +10,8 @@ module org.example.teamup {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
-    requires java.sql;
     requires org.json;
+    requires com.google.gson;
 
     opens org.example.teamup to javafx.fxml;
     exports org.example.teamup;
