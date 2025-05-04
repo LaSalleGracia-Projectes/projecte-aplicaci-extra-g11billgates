@@ -35,7 +35,7 @@ public class MainViewController {
     public void initialize() {
         ajustarLayout();
         cargarUsuarioAleatorio();
-        likeButton.setOnAction(event -> handleLikeButton());
+        likeButton.setOnAction(event -> handleLikeAndCheckMatch());
     }
 
     private void ajustarLayout() {
@@ -71,19 +71,36 @@ public class MainViewController {
             }
         }).start();
     }
-    private void handleLikeButton() {
+    private void handleLikeAndCheckMatch() {
         if (usuario == null) return;
 
         new Thread(() -> {
             try {
-                String response = MatchApiExample.like(usuario.id, AuthSession.getToken());
-                System.out.println("Like enviado: " + response);
-                // Aquí podrías mostrar una notificación visual si quieres
+                int usuarioActualId = usuario.id;
+                String token = AuthSession.getToken();
+
+                // 1. Enviar like (del usuario autenticado al usuario mostrado)
+                MatchApiExample.like(usuarioActualId, token);
+                System.out.println("Like enviado.");
+
+                // 2. Comprobar si el usuario mostrado ya dio like antes
+                boolean hayMatch = MatchApiExample.checkMutualLike(usuarioActualId, token);
+                System.out.println("¿Hay match? " + hayMatch);
+
+                if (hayMatch) {
+                    // 3. Eliminar el like inverso (el que envió el otro)
+                    MatchApiExample.unlikeReceived(usuarioActualId, token);
+                    System.out.println("Like inverso eliminado.");
+
+                    // 4. Crear el match
+                    MatchApiExample.createMatch(usuarioActualId, token);
+                    System.out.println("¡Match creado!");
+                }
+
             } catch (IOException e) {
-                System.out.println("Error al enviar like:");
+                System.out.println("Error en proceso de like/match:");
                 System.out.println(MatchApiExample.getResponseError());
             }
         }).start();
     }
-
 }
