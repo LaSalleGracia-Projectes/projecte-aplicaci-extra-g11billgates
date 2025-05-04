@@ -56,6 +56,37 @@ public class MatchApiExample {
         conn.disconnect();
         return response.toString();
     }
+    public static String like(int IDUsuario2, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/likes";
+        String json = String.format("{\"IDUsuario2\": %d}", IDUsuario2);
+        return sendRequest("POST", url, bearerToken, json);
+    }
+
+    public static String unlikeReceived(int IDUsuario1, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/likes/received";
+        String json = String.format("{\"IDUsuario1\": %d}", IDUsuario1);
+        return sendRequest("DELETE", url, bearerToken, json);
+    }
+
+    public static boolean checkMutualLike(int IDUsuario2, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/match/check";
+        String json = String.format("{\"IDUsuario2\": %d}", IDUsuario2);
+        String response = sendRequest("POST", url, bearerToken, json);
+        JSONObject obj = new JSONObject(response);
+        return obj.getBoolean("match");
+    }
+
+    public static String createMatch(int IDUsuario1, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/matches";
+        String json = String.format("{\"IDUsuario1\": %d}", IDUsuario1);
+        return sendRequest("POST", url, bearerToken, json);
+    }
+
+    public static String deleteMatch(int IDUsuario2, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/match";
+        String json = String.format("{\"IDUsuario2\": %d}", IDUsuario2);
+        return sendRequest("DELETE", url, bearerToken, json);
+    }
 
 
 }
