@@ -38,11 +38,6 @@ class MatchController extends Controller
                     ->where('IDUsuario2', $request->IDUsuario2)
                     ->exists();
 
-        if ($existe) {
-            return response()->json([
-                'message' => 'Ya le diste like a este usuario.'
-            ], 409);
-        }
 
         $like = Like::create([
             'IDUsuario1' => $IDUsuario1,
