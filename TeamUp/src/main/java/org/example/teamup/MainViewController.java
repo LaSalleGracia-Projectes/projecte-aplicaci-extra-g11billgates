@@ -128,18 +128,27 @@ public class MainViewController {
     }
     private void irAChats() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/ChatView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("/org/example/teamup/chat-view.fxml"));
             Parent root = loader.load();
+
             Stage stage = (Stage) chatsButton.getScene().getWindow();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
-            scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+
+            // Reaplicas los estilos
+            scene.getStylesheets().add(
+                    org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(
+                    getClass().getResource("/org/example/teamup/style.css")
+                            .toExternalForm());
+
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            System.out.println("Error al ir a la vista de chats: " + e.getMessage());
+            System.err.println("Error al ir a la vista de chats: " + e.getMessage());
         }
     }
+
 
 
 }
