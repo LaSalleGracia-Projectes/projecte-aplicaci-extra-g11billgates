@@ -86,4 +86,17 @@ class ChatController extends Controller
 
         return response()->json(['message' => 'Chat eliminado correctamente.'], 200);
     }
+    public function listChats(Request $request)
+    {
+        $userId = auth()->id();
+
+        $chats = Chat::whereHas('matchUser', function ($q) use ($userId) {
+            $q->where('IDUsuario1', $userId)
+              ->orWhere('IDUsuario2', $userId);
+        })->get();
+
+        return response()->json([
+            'chats' => $chats
+        ], 200);
+    }
 }

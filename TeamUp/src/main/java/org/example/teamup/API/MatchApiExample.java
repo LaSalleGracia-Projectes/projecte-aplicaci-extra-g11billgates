@@ -76,10 +76,15 @@ public class MatchApiExample {
         return obj.getBoolean("match");
     }
 
-    public static String createMatch(int IDUsuario1, String bearerToken) throws IOException {
+    public static int createMatch(int IDUsuario1, String bearerToken) throws IOException {
         String url = "http://127.0.0.1:8000/api/matches";
         String json = String.format("{\"IDUsuario1\": %d}", IDUsuario1);
-        return sendRequest("POST", url, bearerToken, json);
+        String response = sendRequest("POST", url, bearerToken, json);
+
+        // Esperamos algo como { "status":"Match Created!", "match": { "IDMatch": 42, ... } }
+        JSONObject obj = new JSONObject(response);
+        JSONObject matchObj = obj.getJSONObject("match");
+        return matchObj.getInt("IDMatch");
     }
 
     public static String deleteMatch(int IDUsuario2, String bearerToken) throws IOException {

@@ -4,31 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Chat extends Model
 {
     use HasFactory;
 
+    protected $table = 'chats';
     public $timestamps = false;
-
     protected $primaryKey = 'IDChat';
-
 
     protected $fillable = [
         'IDChat',
         'IDMatch',
-        'FechaCreacion'
+        'FechaCreacion',
     ];
-    //relacion a matchusers 1:1
-    public function matchUsers()
+
+    public function matchUser()
     {
-        return $this->hasOne(MatchUsers::class);
+        return $this->belongsTo(MatchUsers::class, 'IDMatch', 'IDMatch');
     }
-    //relacion a mensaje 1:n
-    public function mensaje()
+
+    /**
+     * Relación a mensajes 1:n
+     */
+    public function mensajes()
     {
-        return $this->hasMany(Mensaje::class);
+        return $this->hasMany(Mensaje::class, 'IDChat', 'IDChat');
     }
 }

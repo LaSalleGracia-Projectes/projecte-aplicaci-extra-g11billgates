@@ -32,6 +32,8 @@ Route::post('/chats', [ChatController::class, 'storeChat'])->middleware('auth:sa
 Route::get('/chats/{idChat}/messages', [ChatController::class, 'getMessagesFromChat'])
     ->middleware(['auth:sanctum', EnsureUserInChatMatch::class]);
 Route::delete('/chats/{id}', [ChatController::class, 'destroy'])->middleware('auth:sanctum');
+Route::get('/listchats', [ChatController::class, 'listChats'])
+    ->middleware('auth:sanctum');
 
 //rutas de match
 Route::post('/matches', [MatchController::class, 'store'])->middleware('auth:sanctum');

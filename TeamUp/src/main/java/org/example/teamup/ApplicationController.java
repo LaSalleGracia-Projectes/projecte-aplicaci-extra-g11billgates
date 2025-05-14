@@ -13,7 +13,6 @@ import javafx.concurrent.Task;
 import org.example.teamup.API.AuthApiExample;
 
 import java.io.IOException;
-//TODO Poner opcion de gmail o contraseña no encontrada en la api de laravel en el endpoint de login
 
 
 public class ApplicationController {

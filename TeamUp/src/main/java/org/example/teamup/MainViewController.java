@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.teamup.API.ChatApiExample;
 import org.example.teamup.API.MatchApiExample;
 import org.example.teamup.API.UserApiExample;
 import org.example.teamup.models.UsuarioDTO;
@@ -95,23 +96,29 @@ public class MainViewController {
                 int usuarioActualId = usuario.id;
                 String token = AuthSession.getToken();
 
+                // 1) Enviamos like
                 MatchApiExample.like(usuarioActualId, token);
-                System.out.println("Like enviado.");
 
+                // 2) Comprobamos si hay match
                 boolean hayMatch = MatchApiExample.checkMutualLike(usuarioActualId, token);
-                System.out.println("¿Hay match? " + hayMatch);
 
                 if (hayMatch) {
+                    // 3) Borramos el like inverso
                     MatchApiExample.unlikeReceived(usuarioActualId, token);
-                    MatchApiExample.createMatch(usuarioActualId, token);
-                    System.out.println("¡Match creado!");
+
+                    // 4) Creamos el match y obtenemos su ID
+                    int idMatch = MatchApiExample.createMatch(usuarioActualId, token);
+                    System.out.println("¡Match creado con ID " + idMatch + "!");
+
+                    // 5) Llamamos al endpoint para crear el chat
+                    ChatApiExample.crearChat(idMatch, token);
+                    System.out.println("Chat creado para el match " + idMatch);
                 }
 
             } catch (IOException e) {
-                System.out.println("Error en proceso de like/match:");
+                System.out.println("Error en proceso de like/match/chat:");
                 System.out.println(MatchApiExample.getResponseError());
             } finally {
-                // ✅ Cargar nuevo usuario al terminar
                 Platform.runLater(this::cargarUsuarioAleatorio);
             }
         }).start();
