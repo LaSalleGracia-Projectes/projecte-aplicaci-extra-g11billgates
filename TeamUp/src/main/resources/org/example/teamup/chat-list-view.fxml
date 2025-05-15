@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.teamup.images.ChatListView"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.teamup.ChatListController">
 
-</AnchorPane>
+    <!-- Barra lateral -->
+    <left>
+        <VBox spacing="20" prefWidth="220" styleClass="bg-danger" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="30" bottom="30" left="20" right="10"/>
+            </padding>
+
+            <Button fx:id="inicioBtn" text="Inicio" styleClass="sidebar-btn"/>
+            <Button text="Match" styleClass="sidebar-btn"/>
+            <Button fx:id="juegosBtn" text="Juegos" styleClass="sidebar-btn"/>
+            <Button text="Chats" styleClass="sidebar-btn"/>
+            <Button text="Perfil" styleClass="sidebar-btn"/>
+        </VBox>
+    </left>
+
+    <!-- Cabecera -->
+    <top>
+        <HBox spacing="10" prefHeight="40" styleClass="top-bar" alignment="CENTER">
+            <padding>
+                <Insets top="5" bottom="5" left="15" right="15"/>
+            </padding>
+
+            <Label text="🔔" styleClass="top-button"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="TeamUp" styleClass="top-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="⚙" styleClass="top-button"/>
+        </HBox>
+    </top>
+
+    <!-- Lista de chats -->
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true">
+            <VBox fx:id="chatListContainer" spacing="15" padding="20"/>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

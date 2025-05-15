@@ -12,7 +12,7 @@ public class ChatApiExample {
         return responseError;
     }
 
-    private static String sendRequest(String method, String urlString, String bearerToken, String jsonInputString) throws IOException {
+    public static String sendRequest(String method, String urlString, String bearerToken, String jsonInputString) throws IOException {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod(method);
