@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.teamup.ChatListController">
@@ -14,9 +15,9 @@
                 <Insets top="30" bottom="30" left="20" right="10"/>
             </padding>
 
-            <Button fx:id="inicioBtn" text="Inicio" styleClass="sidebar-btn"/>
+            <Button fx:id="inicioBtn" text="Inicio" styleClass="sidebar-btn" onAction="#irAInicio"/>
             <Button text="Match" styleClass="sidebar-btn"/>
-            <Button fx:id="juegosBtn" text="Juegos" styleClass="sidebar-btn"/>
+            <Button fx:id="juegosBtn" text="Juegos" styleClass="sidebar-btn" onAction="#irAJuegos"/>
             <Button text="Chats" styleClass="sidebar-btn"/>
             <Button text="Perfil" styleClass="sidebar-btn"/>
         </VBox>
@@ -40,7 +41,13 @@
     <!-- Lista de chats -->
     <center>
         <ScrollPane fitToWidth="true" fitToHeight="true">
-            <VBox fx:id="chatListContainer" spacing="15" padding="20"/>
+            <content>
+                <VBox fx:id="chatListContainer" spacing="15">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                </VBox>
+            </content>
         </ScrollPane>
     </center>
 

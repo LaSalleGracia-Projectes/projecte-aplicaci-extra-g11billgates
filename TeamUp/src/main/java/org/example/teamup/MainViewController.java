@@ -136,7 +136,7 @@ public class MainViewController {
     private void irAChats() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass()
-                    .getResource("/org/example/teamup/chat-view.fxml"));
+                    .getResource("/org/example/teamup/chat-list-view.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) chatsButton.getScene().getWindow();
