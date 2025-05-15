@@ -101,4 +101,40 @@ public class ChatListController {
             System.out.println("Error al abrir el chat: " + e.getMessage());
         }
     }
+    @FXML
+    private void irAInicio() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/MainView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) chatListContainer.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error al ir a la vista de inicio: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void irAJuegos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/juego-view.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) chatListContainer.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error al ir a la vista de juegos: " + e.getMessage());
+        }
+    }
+
 }
