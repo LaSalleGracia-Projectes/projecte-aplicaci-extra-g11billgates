@@ -13,10 +13,10 @@
                 <Insets top="30" bottom="30" left="20" right="10"/>
             </padding>
 
-            <Button text="Inicio" fx:id="inicioBtn" styleClass="sidebar-btn"/>
+            <Button fx:id="inicioBtn" text="Inicio" styleClass="sidebar-btn" onAction="#irAInicio"/>
             <Button text="Match" styleClass="sidebar-btn"/>
-            <Button text="Juegos" styleClass="sidebar-btn"/>
-            <Button  text="Chats" styleClass="sidebar-btn"/>
+            <Button fx:id="juegosBtn" text="Juegos" styleClass="sidebar-btn" onAction="#irAJuegos"/>
+            <Button fx:id="chatsBtn" text="Chats" styleClass="sidebar-btn" onAction="#irAListaDeChats"/>
             <Button text="Perfil" styleClass="sidebar-btn"/>
         </VBox>
     </left>
@@ -38,9 +38,15 @@
 
     <!-- Centro con mensajes -->
     <center>
-        <VBox spacing="10" alignment="TOP_CENTER" padding="20">
-            <ScrollPane fx:id="scrollPane" fitToWidth="true" fitToHeight="true">
-                <VBox fx:id="mensajesContainer" spacing="10"/>
+        <VBox spacing="10" alignment="TOP_CENTER">
+            <ScrollPane fitToWidth="true" fitToHeight="true">
+                <content>
+                    <VBox fx:id="mensajesContainer" spacing="10">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+                    </VBox>
+                </content>
             </ScrollPane>
 
             <HBox spacing="10" alignment="CENTER">
@@ -49,5 +55,6 @@
             </HBox>
         </VBox>
     </center>
+
 
 </BorderPane>

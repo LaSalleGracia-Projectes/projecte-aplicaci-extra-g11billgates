@@ -34,6 +34,8 @@ Route::get('/chats/{idChat}/messages', [ChatController::class, 'getMessagesFromC
 Route::delete('/chats/{id}', [ChatController::class, 'destroy'])->middleware('auth:sanctum');
 Route::get('/listchats', [ChatController::class, 'listChats'])
     ->middleware('auth:sanctum');
+Route::get('/chat/{id}', [ChatController::class, 'show'])->middleware('auth:sanctum');
+
 
 //rutas de match
 Route::post('/matches', [MatchController::class, 'store'])->middleware('auth:sanctum');

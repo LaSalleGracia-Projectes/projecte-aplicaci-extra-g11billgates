@@ -21,13 +21,20 @@ import java.time.format.DateTimeFormatter;
 public class ChatController {
 
     @FXML
+    private Button inicioBtn;
+    @FXML
+    private Button juegosBtn;
+    @FXML
+    private Button chatsBtn;
+    @FXML
     private VBox mensajesContainer;
     @FXML
-    private TextArea inputMensaje;
+    private TextField mensajeField;
     @FXML
     private Button enviarBtn;
     @FXML
-    private Button volverBtn;
+    private ScrollPane scrollPane;
+
 
 
     private int idChat;
@@ -39,8 +46,8 @@ public class ChatController {
 
     @FXML
     public void initialize() {
+        System.out.println("ChatController inicializado con idChat = " + idChat);
         enviarBtn.setOnAction(e -> enviarMensaje());
-        volverBtn.setOnAction(e -> volverInicio(e));
     }
 
     private void cargarMensajes() {
@@ -67,7 +74,7 @@ public class ChatController {
     }
 
     private void enviarMensaje() {
-        String texto = inputMensaje.getText();
+        String texto = mensajeField.getText();
         if (texto == null || texto.trim().isEmpty()) return;
 
         new Thread(() -> {
@@ -76,7 +83,7 @@ public class ChatController {
                 ChatApiExample.enviarMensaje(idChat, "texto", fecha, texto, AuthSession.getToken());
 
                 Platform.runLater(() -> {
-                    inputMensaje.clear();
+                    mensajeField.clear();
                     cargarMensajes();
                 });
             } catch (IOException e) {
@@ -85,20 +92,54 @@ public class ChatController {
         }).start();
     }
 
-    private void volverInicio(javafx.event.ActionEvent event) {
+    @FXML
+    private void irAInicio() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/main-view.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) inicioBtn.getScene().getWindow();
             Scene scene = new Scene(root);
-
             scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
             scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
-
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            System.out.println("Error al volver al inicio: " + e.getMessage());
+            System.out.println("Error al ir a Inicio: " + e.getMessage());
         }
     }
+
+    @FXML
+    private void irAJuegos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/juego-view.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) juegosBtn.getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error al ir a Juegos: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void irAListaDeChats() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/chat-list-view.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) chatsBtn.getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+            scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error al ir a la lista de chats: " + e.getMessage());
+        }
+    }
+
+
+
 }

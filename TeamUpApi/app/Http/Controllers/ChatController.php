@@ -105,4 +105,16 @@ class ChatController extends Controller
             'chats' => $chats
         ], 200);
     }
+    public function show($id)
+    {
+        $chat = Chat::with(['matchUser.usuario1', 'matchUser.usuario2', 'mensajes'])
+                    ->find($id);
+
+        if (!$chat) {
+            return response()->json(['message' => 'Chat no encontrado.'], 404);
+        }
+
+        return response()->json($chat);
+    }
+
 }

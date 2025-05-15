@@ -79,10 +79,27 @@ public class AuthApiExample {
         String url = "http://127.0.0.1:8000/api/register";
         String jsonInputString = String.format(
                 "{\"Nombre\": \"%s\", \"email\": \"%s\", \"password\": \"%s\", \"password_confirmation\": \"%s\", \"Edad\": %d, \"Region\": \"%s\"}",
-                Nombre, email, password, password_confirmation, Edad, region);
+                Nombre, email, password, password_confirmation, Edad, region
+        );
+
         System.out.println("Registrando usuario...");
-        return sendPostRequest(url, jsonInputString);
+        String response = sendPostRequest(url, jsonInputString);
+
+        try {
+            JSONObject json = new JSONObject(response);
+            JSONObject user = json.getJSONObject("user");
+
+            int id = user.getInt("id");
+            AuthSession.setUserId(id);
+            System.out.println("ID de usuario registrado: " + id);
+
+        } catch (Exception e) {
+            System.out.println("Error al extraer ID de usuario: " + e.getMessage());
+        }
+
+        return response;
     }
+
 
     public static String login(String email, String password) throws IOException {
         String url = "http://127.0.0.1:8000/api/login";
@@ -96,6 +113,10 @@ public class AuthApiExample {
             JSONObject json = new JSONObject(response);
             String token = json.getJSONObject("token").getString("plainTextToken"); // ✅
             AuthSession.setToken(token);
+            // Aquí extraemos el id del usuario
+            JSONObject user = json.getJSONObject("user");
+            int id = user.getInt("id");
+            AuthSession.setUserId(id);
             System.out.println("Token guardado: " + token);
             AuthSession.setToken(token);
             System.out.println("Token guardado: " + token);

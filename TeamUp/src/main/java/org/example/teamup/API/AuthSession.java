@@ -2,7 +2,7 @@ package org.example.teamup.API;
 
 public class AuthSession {
     private static String bearerToken;
-    private static int userId;
+    private static int userId = 0;
 
     public static void setToken(String token) {
         bearerToken = token;
