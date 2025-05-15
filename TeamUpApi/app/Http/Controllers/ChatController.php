@@ -90,7 +90,13 @@ class ChatController extends Controller
     {
         $userId = auth()->id();
 
-        $chats = Chat::whereHas('matchUser', function ($q) use ($userId) {
+        $chats = Chat::with([
+            'matchUser.usuario1',
+            'matchUser.usuario2',
+            'mensajes' => function ($q) {
+                $q->orderBy('FechaEnvio', 'asc');
+            }
+        ])->whereHas('matchUser', function ($q) use ($userId) {
             $q->where('IDUsuario1', $userId)
               ->orWhere('IDUsuario2', $userId);
         })->get();
