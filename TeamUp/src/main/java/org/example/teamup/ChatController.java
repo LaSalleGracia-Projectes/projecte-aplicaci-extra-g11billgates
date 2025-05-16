@@ -68,30 +68,42 @@ public class ChatController {
 
                 Platform.runLater(() -> {
                     mensajesContainer.getChildren().clear();
+                    int currentUserId = AuthSession.getUserId();
+
                     for (int i = 0; i < mensajes.length(); i++) {
                         JSONObject mensaje = mensajes.getJSONObject(i);
                         String texto = mensaje.optString("Texto", "[Sin texto]");
-                        int idRemitente = mensaje.optInt("idRemitente", -1);
+                        int idRemitente = mensaje.optInt("IDUsuario", -1);
 
+                        // Crear el Label del mensaje
                         Label label = new Label(texto);
                         label.setWrapText(true);
-                        label.setMaxWidth(400);
-                        label.setStyle("-fx-background-color: #e0e0e0; -fx-padding: 10; -fx-background-radius: 10;");
+                        label.setPadding(new Insets(8));
+                        label.setStyle("-fx-background-radius: 12; -fx-font-size: 13px;");
+                        label.setMaxWidth(300);
 
+                        // Contenedor del mensaje
                         HBox contenedorMensaje = new HBox(label);
                         contenedorMensaje.setPadding(new Insets(5, 10, 5, 10));
+                        contenedorMensaje.setMaxWidth(Double.MAX_VALUE);
 
-                        if (idRemitente == AuthSession.getUserId()) {
+                        if (idRemitente == currentUserId) {
                             contenedorMensaje.setAlignment(Pos.CENTER_RIGHT);
-                            label.setStyle("-fx-background-color: #cce5ff; -fx-padding: 10; -fx-background-radius: 10;");
+                            label.setStyle(label.getStyle() + "-fx-background-color: #cce5ff; -fx-text-fill: black;");
                         } else {
                             contenedorMensaje.setAlignment(Pos.CENTER_LEFT);
-                            label.setStyle("-fx-background-color: #f8d7da; -fx-padding: 10; -fx-background-radius: 10;");
+                            label.setStyle(label.getStyle() + "-fx-background-color: #eeeeee; -fx-text-fill: black;");
                         }
 
                         mensajesContainer.getChildren().add(contenedorMensaje);
                     }
+
+                    // Auto scroll al final
+                    scrollPane.layout();
+                    scrollPane.setVvalue(1.0);
                 });
+
+
 
             } catch (IOException e) {
                 System.out.println("Error cargando mensajes: " + e.getMessage());
