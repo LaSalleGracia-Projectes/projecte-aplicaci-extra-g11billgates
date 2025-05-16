@@ -26,27 +26,27 @@
             <Region minHeight="30"/>
 
             <!-- Nombre de Usuario -->
-            <Label text="Nombre de usuario:" styleClass="form-label, label-large"/>
+            <Label text="Nombre de usuario:" styleClass="form-label, label-large-black"/>
             <TextField fx:id="nombreField" promptText="Introduce tu nombre" styleClass="input-large"/>
 
             <!-- Correo electrónico -->
-            <Label text="Correo electrónico:" styleClass="form-label, label-large"/>
+            <Label text="Correo electrónico:" styleClass="form-label, label-large-black"/>
             <TextField fx:id="emailField" promptText="ejemplo@correo.com" styleClass="input-large"/>
 
             <!-- Contraseña -->
-            <Label text="Contraseña:" styleClass="form-label, label-large"/>
+            <Label text="Contraseña:" styleClass="form-label, label-large-black"/>
             <PasswordField fx:id="passwordField" promptText="********" styleClass="input-large"/>
 
             <!-- Confirmar contraseña -->
-            <Label text="Confirmar contraseña:" styleClass="form-label, label-large"/>
+            <Label text="Confirmar contraseña:" styleClass="form-label, label-large-black"/>
             <PasswordField fx:id="confirmPasswordField" promptText="********" styleClass="input-large"/>
 
             <!-- Edad -->
-            <Label text="Edad:" styleClass="form-label, label-large"/>
+            <Label text="Edad:" styleClass="form-label, label-large-black"/>
             <TextField fx:id="edadField" promptText="Tu edad" styleClass="input-large"/>
 
             <!-- Región -->
-            <Label text="Región:" styleClass="form-label, label-large"/>
+            <Label text="Región:" styleClass="form-label, label-large-black"/>
             <ComboBox fx:id="regionField" onAction="#selectRegion" promptText="Selecciona tu región" styleClass="input-large"/>
 
             <!-- Enlace para volver al login -->

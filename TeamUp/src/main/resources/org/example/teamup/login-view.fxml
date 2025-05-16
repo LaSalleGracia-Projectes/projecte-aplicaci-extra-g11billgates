@@ -20,11 +20,11 @@
   <Region minHeight="30"/>
 
   <!-- Campo Email -->
-  <Label text="Correo electrónico:" styleClass="form-label, label-large"/>
+  <Label text="Correo electrónico:" styleClass="form-label, label-large-black"/>
   <TextField fx:id="emailField" promptText="ejemplo@correo.com" styleClass="input-large"/>
 
   <!-- Campo Contraseña -->
-  <Label text="Contraseña:" styleClass="form-label, label-large"/>
+  <Label text="Contraseña:" styleClass="form-label, label-large-black"/>
   <PasswordField fx:id="passwordField" promptText="********" styleClass="input-large"/>
 
   <!-- Enlace para ir a Registro -->

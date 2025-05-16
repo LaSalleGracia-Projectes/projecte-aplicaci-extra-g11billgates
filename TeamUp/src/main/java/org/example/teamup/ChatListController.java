@@ -17,6 +17,7 @@ import org.example.teamup.API.ChatApiExample;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
 import java.io.IOException;
 
 public class ChatListController {
@@ -121,7 +122,7 @@ public class ChatListController {
 
         chatItem.getChildren().addAll(imagen, textoBox);
 
-        chatItem.setOnMouseClicked(e -> abrirChat(idChat));
+        chatItem.setOnMouseClicked(e -> abrirChat(idChat, nombre, fotoPerfil));
 
         chatListContainer.getChildren().add(chatItem);
     }
@@ -161,12 +162,12 @@ public class ChatListController {
             System.out.println("Error al ir a la vista de juegos: " + e.getMessage());
         }
     }
-    private void abrirChat(int idChat) {
+    private void abrirChat(int idChat, String nombre, String fotoPerfil) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/chat-view.fxml"));
             Parent root = loader.load();
             ChatController controller = loader.getController();
-            controller.setIdChat(idChat);
+            controller.setDatosDelOtroUsuario(idChat, nombre, fotoPerfil);
 
             Stage stage = (Stage) chatListContainer.getScene().getWindow();
             Scene scene = new Scene(root);
@@ -178,5 +179,6 @@ public class ChatListController {
             System.out.println("Error al abrir el chat: " + e.getMessage());
         }
     }
+
 
 }

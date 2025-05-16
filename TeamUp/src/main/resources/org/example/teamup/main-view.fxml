@@ -91,14 +91,6 @@
                                styleClass="label-large"
                                wrapText="true"
                                maxWidth="400"/>
-                        <Label text="WoW"
-                               styleClass="bienvenida-label"
-                               wrapText="true"
-                               maxWidth="400"/>
-                        <Label text="Geishing Impact"
-                               styleClass="bienvenida-label"
-                               wrapText="true"
-                               maxWidth="400"/>
                         <VBox fx:id="juegoListContainer" spacing="6" alignment="TOP_LEFT"/>
                     </VBox>
                 </ScrollPane>

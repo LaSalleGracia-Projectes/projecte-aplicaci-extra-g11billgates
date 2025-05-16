@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -43,8 +45,22 @@ public class ChatController {
     private Button enviarBtn;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private Label nombreUsuarioLabel;
+    @FXML
+    private ImageView fotoUsuario;
 
+    private String nombreOtroUsuario;
+    private String fotoOtroUsuario;
 
+    public void setDatosDelOtroUsuario(int idChat, String nombre, String foto) {
+        this.idChat = idChat;
+        this.nombreOtroUsuario = nombre;
+        this.fotoOtroUsuario = foto;
+
+        mostrarDatosDelOtroUsuario();
+        cargarMensajes();
+    }
 
     private int idChat;
 
@@ -179,7 +195,18 @@ public class ChatController {
             System.out.println("Error al ir a la lista de chats: " + e.getMessage());
         }
     }
+    private void mostrarDatosDelOtroUsuario() {
+        Platform.runLater(() -> {
+            nombreUsuarioLabel.setText(nombreOtroUsuario);
+            Image imagen = new Image("http://localhost:8000/storage/" + fotoOtroUsuario, true);
+            fotoUsuario.setImage(imagen);
 
-
+            // Imagen circular 60x60 como en chat-list
+            fotoUsuario.setFitWidth(60);
+            fotoUsuario.setFitHeight(60);
+            fotoUsuario.setPreserveRatio(false);
+            fotoUsuario.setClip(new javafx.scene.shape.Circle(30, 30, 30));
+        });
+    }
 
 }
