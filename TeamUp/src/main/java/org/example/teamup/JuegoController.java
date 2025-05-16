@@ -28,6 +28,8 @@ public class JuegoController {
     @FXML
     private VBox juegosContainer;
     @FXML
+    private Button chatBtn;
+    @FXML
     private Button guardarBtn;
     @FXML
     private Button inicioBtn;
@@ -39,6 +41,7 @@ public class JuegoController {
         cargarJuegos();
 
         guardarBtn.setOnAction(event -> guardarJuegoSeleccionado());
+
         inicioBtn.setOnAction(event -> {
             try {
                 irAInicio(event);
@@ -46,7 +49,16 @@ public class JuegoController {
                 System.out.println("Error al volver al inicio: " + e.getMessage());
             }
         });
+
+        chatBtn.setOnAction(event -> {
+            try {
+                irAChats(event);
+            } catch (IOException e) {
+                System.out.println("Error al ir a la vista de chats: " + e.getMessage());
+            }
+        });
     }
+
 
     private void cargarJuegos() {
         new Thread(() -> {
@@ -112,6 +124,20 @@ public class JuegoController {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    public void irAChats(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/teamup/chat-list-view.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+
+        scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
+        scene.getStylesheets().add(getClass().getResource("/org/example/teamup/style.css").toExternalForm());
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package org.example.teamup;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
@@ -21,6 +22,7 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.getIcons().add(new Image(getClass().getResource("/org/example/teamup/app-icon.png").toExternalForm()));
         stage.setTitle("TeamUp");
         stage.setScene(scene);
         stage.show();

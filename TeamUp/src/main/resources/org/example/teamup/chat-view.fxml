@@ -15,10 +15,8 @@
             </padding>
 
             <Button fx:id="inicioBtn" text="Inicio" styleClass="sidebar-btn" onAction="#irAInicio"/>
-            <Button text="Match" styleClass="sidebar-btn"/>
             <Button fx:id="juegosBtn" text="Juegos" styleClass="sidebar-btn" onAction="#irAJuegos"/>
             <Button fx:id="chatsBtn" text="Chats" styleClass="sidebar-btn"/>
-            <Button text="Perfil" styleClass="sidebar-btn"/>
         </VBox>
     </left>
 

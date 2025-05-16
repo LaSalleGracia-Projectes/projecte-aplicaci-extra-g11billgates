@@ -13,12 +13,20 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.teamup.API.AuthApiExample;
+import org.example.teamup.API.AuthSession;
+import org.example.teamup.API.UserApiExample;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import javafx.stage.FileChooser;
+import java.io.File;
+
+
+
 public class RegisterController {
+    private File fotoSeleccionada;
 
     private Stage stage ;
     private Scene scene;
@@ -40,6 +48,23 @@ public class RegisterController {
     private Label statusLabel;
     @FXML
     private Label welcomeText;
+    @FXML
+    private Label fotoLabel;
+
+    @FXML
+    private void handleFotoSeleccion(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar foto de perfil");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            fotoSeleccionada = selectedFile;
+            fotoLabel.setText(selectedFile.getName());
+        }
+    }
+
 
     public void initialize(){
         regionField.getItems().addAll("Europa", "Norteamérica", "Sudamerica", "Asia", "Africa", "Oceania");
@@ -83,30 +108,44 @@ public class RegisterController {
             return;
         }
 
-        Task<Void> task = new Task<Void>() {
+        if (fotoSeleccionada == null) {
+            statusLabel.setText("Selecciona una foto de perfil.");
+            return;
+        }
+
+        Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 try {
+                    // 1. Registrar al usuario
                     String response = AuthApiExample.register(nombre, email, password, confirmPassword, edad, region);
 
-                    // Cambio a MainView después de registro exitoso
+                    // 2. Subir la foto de perfil
+                    try {
+                        String fotoResponse = UserApiExample.subirFotoPerfil(fotoSeleccionada, AuthSession.getToken());
+                        System.out.println("Foto subida: " + fotoResponse);
+                    } catch (IOException e) {
+                        Platform.runLater(() -> statusLabel.setText("Error al subir la foto de perfil."));
+                        return null;
+                    }
+
+                    // 3. Redirigir a login (no a main-view)
                     Platform.runLater(() -> {
                         try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
                             Parent root = loader.load();
                             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             scene = new Scene(root);
-
-                            // Añadir los estilos de nuevo
                             scene.getStylesheets().add(org.kordamp.bootstrapfx.BootstrapFX.bootstrapFXStylesheet());
                             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
                             stage.setScene(scene);
                             stage.show();
                         } catch (IOException e) {
                             e.printStackTrace();
+                            statusLabel.setText("Error al redirigir al login.");
                         }
                     });
+
                 } catch (IOException ex) {
                     String errorResponse = AuthApiExample.getResponseError();
                     String errorMessages = parseErrorMessages(errorResponse);
@@ -115,6 +154,7 @@ public class RegisterController {
                 return null;
             }
         };
+
         new Thread(task).start();
     }
 

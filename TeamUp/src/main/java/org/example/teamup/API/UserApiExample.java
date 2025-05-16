@@ -1,10 +1,9 @@
 package org.example.teamup.API;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 
 public class UserApiExample {
 
@@ -67,6 +66,55 @@ public class UserApiExample {
         String url = "http://127.0.0.1:8000/api/usuario/" + id;
         return sendGetRequest(url, bearerToken);
     }
+    public static String subirFotoPerfil(File foto, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/user/foto-perfil";
+
+        String boundary = Long.toHexString(System.currentTimeMillis());
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Authorization", "Bearer " + bearerToken);
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        try (OutputStream output = connection.getOutputStream();
+             PrintWriter writer = new PrintWriter(new OutputStreamWriter(output, "UTF-8"), true)) {
+
+            // -- Foto
+            writer.append("--").append(boundary).append("\r\n");
+            writer.append("Content-Disposition: form-data; name=\"foto\"; filename=\"")
+                    .append(foto.getName()).append("\"\r\n");
+            writer.append("Content-Type: image/jpeg\r\n\r\n").flush();
+            Files.copy(foto.toPath(), output);
+            output.flush();
+            writer.append("\r\n").flush();
+
+            // -- End
+            writer.append("--").append(boundary).append("--").append("\r\n").flush();
+        }
+
+        int responseCode = connection.getResponseCode();
+        BufferedReader in;
+        StringBuilder response = new StringBuilder();
+
+        if (responseCode < HttpURLConnection.HTTP_BAD_REQUEST) {
+            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        } else {
+            in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+        }
+
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        if (responseCode >= HttpURLConnection.HTTP_BAD_REQUEST) {
+            throw new IOException("Error al subir foto: " + response);
+        }
+
+        return response.toString();
+    }
+
 
     /**
      * Prueba de getRandomUserId

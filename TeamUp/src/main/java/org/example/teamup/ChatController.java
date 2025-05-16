@@ -114,18 +114,17 @@ public class ChatController {
                         mensajesContainer.getChildren().add(contenedorMensaje);
                     }
 
-                    // Auto scroll al final
+                    // ✅ Asegura que el scroll se mueva después del layout
                     scrollPane.layout();
-                    scrollPane.setVvalue(1.0);
+                    Platform.runLater(() -> scrollPane.setVvalue(1.0));
                 });
-
-
 
             } catch (IOException e) {
                 System.out.println("Error cargando mensajes: " + e.getMessage());
             }
         }).start();
     }
+
 
 
 

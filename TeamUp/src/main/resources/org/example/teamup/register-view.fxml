@@ -54,6 +54,10 @@
                        onAction="#switchToLogin"
                        styleClass="text-info"/>
 
+            <Label text="Foto de perfil:" styleClass="form-label, label-large-black"/>
+            <Button text="Seleccionar imagen" onAction="#handleFotoSeleccion" styleClass="btn, btn-outline-primary"/>
+            <Label fx:id="fotoLabel" text="Ningún archivo seleccionado" style="-fx-font-size: 11px; -fx-text-fill: grey;"/>
+
             <!-- Botón Registrar -->
             <Button text="Registrarse" onAction="#handleRegister" styleClass="btn, btn-danger, btn-lg"/>
 
