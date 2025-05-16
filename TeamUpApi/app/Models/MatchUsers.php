@@ -21,15 +21,14 @@ class MatchUsers extends Model
         'IDUsuario2',
         'FechaCreacion'
     ];
-    //relacion al usuario 1 1:n
     public function usuario1()
     {
-        return $this->belongsTo(Usuario::class, 'IDUsuario1', 'IDUsuario');
+        return $this->belongsTo(Usuario::class, 'IDUsuario1', 'id');
     }
-    //relacion al usuario 2 1:n
+
     public function usuario2()
     {
-        return $this->belongsTo(Usuario::class, 'IDUsuario2', 'IDUsuario');
+        return $this->belongsTo(Usuario::class, 'IDUsuario2', 'id');
     }
     //relacion a chat 1:1
     public function chat()

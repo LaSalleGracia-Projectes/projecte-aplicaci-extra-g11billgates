@@ -68,5 +68,11 @@ public class JuegoApiExample {
         String url = "http://127.0.0.1:8000/api/juegos";
         return sendRequest("GET", url, bearerToken, null);
     }
+    public static String obtenerJuegosFavoritosDeUsuario(int userId, String bearerToken) throws IOException {
+        String url = "http://127.0.0.1:8000/api/juegoFavorito/" + userId;
+        return sendRequest("GET", url, bearerToken, null);
+    }
+
+
 
 }

@@ -48,3 +48,4 @@ Route::delete('/match', [MatchController::class, 'deleteMatch'])->middleware('au
 Route::post('/juego', [JuegoController::class, 'añadirJuego'])->middleware('auth:sanctum');
 Route::delete('/juego', [JuegoController::class, 'borrarJuego'])->middleware('auth:sanctum');
 Route::get('/juegos', [JuegoController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/juegoFavorito/{id}', [JuegoController::class, 'juegosFavoritos'])->middleware('auth:sanctum');

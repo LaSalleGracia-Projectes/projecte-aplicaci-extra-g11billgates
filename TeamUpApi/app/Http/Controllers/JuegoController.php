@@ -38,4 +38,23 @@ class JuegoController extends Controller
     {
         return response()->json(Juego::all());
     }
+    public function juegosFavoritos($id)
+    {
+        $usuario = \App\Models\Usuario::with('juego')->find($id);
+
+        if (!$usuario) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        $juegos = $usuario->juego->map(function ($juego) {
+            return [
+                'Nombre' => $juego->NombreJuego,
+                'Genero' => $juego->Genero,
+            ];
+        });
+
+        return response()->json($juegos);
+    }
+
+
 }

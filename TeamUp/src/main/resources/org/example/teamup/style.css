@@ -1,6 +1,7 @@
 .label-large {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 .textfield-large {
@@ -60,7 +61,7 @@
 }
 
 .top-button {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-size: 18px;
     -fx-cursor: hand;
 }
@@ -90,7 +91,21 @@
 }
 */
 .bienvenida-label {
+    -fx-font-size: 14px;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
+
+.mensaje-usuario {
+    -fx-background-color: #cce5ff;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+}
+
+.mensaje-otro {
+    -fx-background-color: #f8d7da;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+}
 

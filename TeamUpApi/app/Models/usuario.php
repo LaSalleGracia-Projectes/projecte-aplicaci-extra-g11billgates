@@ -15,6 +15,8 @@ class Usuario extends Model
     use HasApiTokens;
 
     protected $table = 'users'; // Especifica el nombre de la tabla
+    protected $primaryKey = 'id';
+
 
     protected $fillable = [
         'id',

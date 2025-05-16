@@ -3,8 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
-
 <?import javafx.scene.image.ImageView?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.teamup.MainViewController">
 
@@ -44,8 +44,6 @@
         </HBox>
     </top>
 
-
-
     <!-- Área de contenido -->
     <center>
         <HBox spacing="20" alignment="TOP_LEFT">
@@ -67,13 +65,41 @@
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-                        <Label fx:id="tituloLabel" text="¡Bienvenido a TeamUp!" styleClass="titulo-principal" wrapText="true" maxWidth="400"/>
-                        <Label text="Explora partidas, encuentra compañeros y juega en equipo."
-                               styleClass="bienvenida-label" wrapText="true" maxWidth="400"/>
-                        <Label text="En el panel de la izquierda puedes navegar entre las secciones."
-                               styleClass="bienvenida-label" wrapText="true" maxWidth="400"/>
-                        <Label text="Disfruta la experiencia."
-                               styleClass="bienvenida-label" wrapText="true" maxWidth="400"/>
+
+                        <!-- nombre y edad -->
+                        <Label fx:id="tituloLabel"
+                               text="¡Bienvenido a TeamUp!"
+                               styleClass="titulo-principal"
+                               wrapText="true"
+                               maxWidth="400"/>
+
+                        <!-- juego principal dinámico -->
+                        <Label fx:id="gameTitleLabel"
+                               text=""
+                               styleClass="bienvenida-label"
+                               wrapText="true"
+                               maxWidth="400"/>
+
+                        <Label fx:id="gameGenreLabel"
+                               text=""
+                               wrapText="true"
+                               maxWidth="400"
+                               style="-fx-text-fill: #cccccc;"/>
+
+                        <!-- texto estático original -->
+                        <Label text="Juegos Favoritos:"
+                               styleClass="label-large"
+                               wrapText="true"
+                               maxWidth="400"/>
+                        <Label text="WoW"
+                               styleClass="bienvenida-label"
+                               wrapText="true"
+                               maxWidth="400"/>
+                        <Label text="Geishing Impact"
+                               styleClass="bienvenida-label"
+                               wrapText="true"
+                               maxWidth="400"/>
+                        <VBox fx:id="juegoListContainer" spacing="6" alignment="TOP_LEFT"/>
                     </VBox>
                 </ScrollPane>
 
@@ -87,8 +113,5 @@
             </VBox>
         </HBox>
     </center>
-
-
-
 
 </BorderPane>

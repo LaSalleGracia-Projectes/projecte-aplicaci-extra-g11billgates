@@ -15,15 +15,20 @@ import javafx.stage.Stage;
 import org.example.teamup.API.ChatApiExample;
 import org.example.teamup.API.MatchApiExample;
 import org.example.teamup.API.UserApiExample;
+import org.example.teamup.API.JuegoApiExample;
+import org.example.teamup.models.JuegoDTO;
 import org.example.teamup.models.UsuarioDTO;
 import org.example.teamup.API.AuthSession;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MainViewController {
 
     @FXML
     private Button dislikeButton;
+    @FXML
+    private VBox juegoListContainer;
     @FXML
     private Button juegosButton;
     @FXML
@@ -51,7 +56,7 @@ public class MainViewController {
         likeButton.setOnAction(event -> handleLikeAndCheckMatch());
         juegosButton.setOnAction(event -> irAJuegos());
         chatsButton.setOnAction(event -> irAChats());
-
+        dislikeButton.setOnAction(event -> cargarUsuarioAleatorio());
 
     }
 
@@ -78,6 +83,17 @@ public class MainViewController {
 
                 Platform.runLater(() -> {
                     tituloLabel.setText(usuario.Nombre + " " + usuario.Edad);
+                    // Aquí llamas al endpoint para los juegos favoritos:
+                    String juegosJson = null;
+                    try {
+                        juegosJson = JuegoApiExample.obtenerJuegosFavoritosDeUsuario(usuario.id, token);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    JuegoDTO[] juegos = gson.fromJson(juegosJson, JuegoDTO[].class);
+                    usuario.Juegos = List.of(juegos);
+
+                    actualizarJuegosUI(usuario.Juegos);
                     String fotoUrl = "http://localhost:8000/storage/" + usuario.FotoPerfil;
                     bienvenidaImage.setImage(new Image(fotoUrl, true));
                 });
@@ -155,7 +171,22 @@ public class MainViewController {
             System.err.println("Error al ir a la vista de chats: " + e.getMessage());
         }
     }
+    private void actualizarJuegosUI(List<JuegoDTO> juegos) {
+        juegoListContainer.getChildren().clear();
+        for (JuegoDTO juego : juegos) {
+            Label nombre = new Label(juego.Nombre);
+            nombre.getStyleClass().add("bienvenida-label");
+            nombre.setWrapText(true);
+            nombre.setMaxWidth(400);
 
+            Label genero = new Label(juego.Genero);
+            genero.setStyle("-fx-text-fill: #cccccc;");
+            genero.setWrapText(true);
+            genero.setMaxWidth(400);
+
+            juegoListContainer.getChildren().addAll(nombre, genero);
+        }
+    }
 
 
 }

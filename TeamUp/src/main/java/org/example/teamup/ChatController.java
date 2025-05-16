@@ -3,16 +3,25 @@ package org.example.teamup;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import org.example.teamup.API.AuthSession;
 import org.example.teamup.API.ChatApiExample;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -62,8 +71,25 @@ public class ChatController {
                     for (int i = 0; i < mensajes.length(); i++) {
                         JSONObject mensaje = mensajes.getJSONObject(i);
                         String texto = mensaje.optString("Texto", "[Sin texto]");
+                        int idRemitente = mensaje.optInt("idRemitente", -1);
+
                         Label label = new Label(texto);
-                        mensajesContainer.getChildren().add(label);
+                        label.setWrapText(true);
+                        label.setMaxWidth(400);
+                        label.setStyle("-fx-background-color: #e0e0e0; -fx-padding: 10; -fx-background-radius: 10;");
+
+                        HBox contenedorMensaje = new HBox(label);
+                        contenedorMensaje.setPadding(new Insets(5, 10, 5, 10));
+
+                        if (idRemitente == AuthSession.getUserId()) {
+                            contenedorMensaje.setAlignment(Pos.CENTER_RIGHT);
+                            label.setStyle("-fx-background-color: #cce5ff; -fx-padding: 10; -fx-background-radius: 10;");
+                        } else {
+                            contenedorMensaje.setAlignment(Pos.CENTER_LEFT);
+                            label.setStyle("-fx-background-color: #f8d7da; -fx-padding: 10; -fx-background-radius: 10;");
+                        }
+
+                        mensajesContainer.getChildren().add(contenedorMensaje);
                     }
                 });
 
@@ -72,6 +98,8 @@ public class ChatController {
             }
         }).start();
     }
+
+
 
     private void enviarMensaje() {
         String texto = mensajeField.getText();

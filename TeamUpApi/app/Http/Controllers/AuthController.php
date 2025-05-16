@@ -19,8 +19,13 @@ class AuthController extends Controller
             'Edad' => $request->Edad,
             'Region' => $request->Region
         ]);
-        return response()->json([$user, 201]);
+
+        return response()->json([
+            'user' => $user,
+            'status' => 201
+        ]);
     }
+
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -28,6 +33,7 @@ class AuthController extends Controller
         }
         $token = auth()->user()->createToken('Auth token');
         $res = [
+            'user' => auth()->user(),
             'token' => $token,
             'plain' => $token->plainTextToken
         ];
